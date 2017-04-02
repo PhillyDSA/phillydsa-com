@@ -18,7 +18,8 @@ test:
 
 dev:
 	pyenv install -s 3.6.0
-	pyenv virtualenv 3.6.0 phillydsa
-	pyenv local philly-dsa-membership
+	# Make will continue here in the event that the virtualenv already exists
+	- pyenv virtualenv 3.6.0 phillydsa
+	pyenv local phillydsa
 	pip install -r requirements/dev.txt
 	pre-commit install
