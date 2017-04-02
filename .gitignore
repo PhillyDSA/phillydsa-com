@@ -96,3 +96,4 @@ ENV/
 .ropeproject
 
 db.sqlite3
+conf.ini
