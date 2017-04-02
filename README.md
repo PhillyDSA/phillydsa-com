@@ -1,8 +1,6 @@
-# Philly DSA Membership
+# Philly DSA Website
 
-Django app for our website
-
-
+Django site for Philly DSA
 
 ## Installation
 
