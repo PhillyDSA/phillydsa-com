@@ -2,27 +2,50 @@
 
 Django site for Philly DSA
 
-## Installation
-
-_TKTK_
-
 ## Contributing
 
 ####  Code of Conduct
 All contributors agree to abide by the Philly DSA Code of Conduct, which can be found at: [TKTK](github.com/TKTK).
 
 #### Environment
+
+##### Backend
+
 Install requirements. If you're using [pyenv](https://github.com/pyenv/pyenv):
 
-* `make dev`
+    make dev
 
 Or by running:
 
-* `pip install -r requirements/dev.txt`
+    pip install -r requirements/dev.txt
 
 This will install all the required dependencies for the project. We use [pre-commit](http://pre-commit.com/) hooks, so if you didn't install by `make dev`, run `pre-commit install` in the root directory.
 
 Development occurs on the `develop` branch and `master` is reserved for releases. See [A Successful Git Branching Model](http://nvie.com/posts/a-successful-git-branching-model/) for rationale. [Git Flow AVH](https://github.com/petervanderdoes/gitflow-avh) is one tool to help manage this workflow. YMMV so use whatever you're comfortable with and it'll work out in the end.
+
+##### Frontend
+
+Install gulp globally with:
+
+    npm install gulp -g
+
+Install local dependencies with:
+
+    npm install
+
+This is just for livereload at the moment, so feel free to ignore if it's annoying.
+
+##### Putting it all together
+
+Run:
+
+    make dev
+    python manage.py migrate
+    python manage.py createsuperuser  # follow prompts
+    make gulp  # open another terminal and:
+    make server
+
+and you should be good to go.
 
 #### Testing
 
@@ -46,7 +69,3 @@ To submit a pull request, start new branch, commit your changes, and then submit
 Feel free to submit any issues you come across, whether they're technical or something about installation or usage is unclear - both are important and welcome.
 
 We use issue templates, which may not be appropriate for all issues, so take the template with a grain of salt.
-
-## Usage
-
-_TKTK_
