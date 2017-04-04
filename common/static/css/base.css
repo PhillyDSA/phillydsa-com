@@ -1,0 +1,28 @@
+@font-face {
+    font-family: "Manifold";
+    font-weight: 300;
+    src: url('../fonts/ManifoldDSA-Light.woff2') format('woff2'),
+         url('../fonts/ManifoldDSA-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: "Manifold";
+    font-weight: 400;
+    src: url('../fonts/ManifoldDSA-Regular.woff2') format('woff2'),
+         url('../fonts/ManifoldDSA-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: "Manifold";
+    font-weight: 600;
+    src: url('../fonts/ManifoldDSA-DemiBold.woff2') format('woff2'),
+         url('../fonts/ManifoldDSA-DemiBold.woff') format('woff');
+}
+
+.manifold {
+    font-family: "Manifold";
+}
+
+.event-page-item:nth-of-type(4) {
+    clear: both;
+}
