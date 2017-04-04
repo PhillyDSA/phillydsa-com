@@ -97,3 +97,4 @@ ENV/
 
 db.sqlite3
 conf.ini
+media
