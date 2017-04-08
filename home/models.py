@@ -9,7 +9,8 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.blocks import ImageChooserBlock
+
+from common.blocks import CaptionImageBlock, BlockQuoteBlock, HeaderH1
 
 
 class HomePage(Page):
@@ -21,7 +22,9 @@ class HomePage(Page):
     body = StreamField([
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', CaptionImageBlock()),
+        ('h1', HeaderH1()),
+        ('block_quote', BlockQuoteBlock()),
     ])
 
     search_fields = Page.search_fields + [
