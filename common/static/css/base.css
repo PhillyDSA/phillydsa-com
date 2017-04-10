@@ -22,7 +22,3 @@
 .manifold {
     font-family: "Manifold";
 }
-
-.event-page-item:nth-of-type(4) {
-    clear: both;
-}

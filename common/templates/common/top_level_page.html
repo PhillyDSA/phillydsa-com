@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-top_level_page{% endblock %}
+
+{% block content %}
+    <div class="measure center">
+        <h1 class="tracked-tight center measure">{{ page.title }}</h1>
+        <article class="lh-copy fw4 ">
+            {% include_block page.body %}
+        </article>
+    </div>
+{% endblock %}

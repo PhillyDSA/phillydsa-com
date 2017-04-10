@@ -22,8 +22,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'tachyons/css/tachyons.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'tachyons/css/tachyons.css' %}">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -49,7 +49,7 @@
         </nav>
         {% endblock %}
 
-        <main class="pa2 center w-80">
+        <main class="pa2 center w-100">
         {% block content %}
 
         {# page content goes here #}
