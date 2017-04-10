@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-membercalendarhomepage{% endblock %}
+
+{% block content %}
+
+    <article class="cf pa3 mw9 center">
+        <header class="w-100-l pa3-m pa4-l">
+            <h1 class='lh-title f1'>
+                {{ page.title }}
+            </h1>
+            <div class="f3 lh-subtitle measure-title">
+                {{ page.intro|richtext }}
+            </div>
+        </header>
+
+        <section class="w-100">
+        {% for event in events %}
+            <div class="border event-page-item fl w-100 w-50-m w-33-l pv3 pa3-m pa4-l" style="height: 100%">
+                <p class="f6 lh-copy measure">
+                    <a href="{% pageurl event %}" class="f3 fw6 red lh-solid link hover-red black ">{{ event.specific.title }}</a><br>
+                    {{ event.specific.event_date }}
+                    <br>
+                    {{ event.specific.body }}
+                </p>
+            </div>
+        {% endfor %}
+        </section>
+
+    </article>
+
+{% endblock %}
