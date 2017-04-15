@@ -9,6 +9,15 @@ All contributors agree to abide by the Philly DSA Code of Conduct, which can be 
 
 #### Environment
 
+Clone the repository with:
+
+    git clone
+    git checkout develop
+    git submodule init
+    git submodule update
+
+That should be it.
+
 ##### Backend
 
 Install requirements. If you're using [pyenv](https://github.com/pyenv/pyenv):
