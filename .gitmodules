@@ -1,0 +1,3 @@
+[submodule "common/static/css"]
+	path = common/static/css
+	url = https://github.com/PhillyDSA/phillydsa-css
