@@ -27,10 +27,13 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    # First party apps
     'common',
     'member_calendar',
     'home',
     'search',
+
+    # Wagtail apps
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -43,9 +46,12 @@ INSTALLED_APPS = [
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
-
     'modelcluster',
     'taggit',
+
+    # Third party wagtail apps
+    'wagtailmenus',
+    'wagtail.contrib.modeladmin',  # required for wagtailmenus
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -84,6 +90,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wagtailmenus.context_processors.wagtailmenus',
             ],
         },
     },

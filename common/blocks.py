@@ -59,3 +59,13 @@ class Subhead(blocks.CharBlock):
 
         icon = 'title'
         template = 'common/_subhead.html'
+
+
+class LocalDuesCTA(blocks.CharBlock):
+    """Create a call to action for use within page."""
+
+    class Meta:
+        """Class specific attributes."""
+
+        icon = 'title'
+        template = 'common/_cta.html'

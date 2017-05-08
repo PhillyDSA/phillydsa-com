@@ -13,7 +13,7 @@
   hooks:
   - id: pydocstyle
     exclude: "migrations/*"
-    args: ['--ignore=D100,D203']
+    args: ['--ignore=D100,D105,D203']
 
 - repo: git://github.com/pricematch/pricematch-pre-commit-hooks
   sha: 82b0c142b363547cc873bc6581fa3074087a37d2
