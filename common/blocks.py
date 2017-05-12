@@ -61,8 +61,13 @@ class Subhead(blocks.CharBlock):
         template = 'common/_subhead.html'
 
 
-class LocalDuesCTA(blocks.CharBlock):
+class CallToAction(blocks.StructBlock):
     """Create a call to action for use within page."""
+
+    title = blocks.CharBlock(max_length=255)
+    cta_copy = blocks.CharBlock(max_length=255)
+    button_title = blocks.CharBlock(max_length=255)
+    button_link = blocks.PageChooserBlock()
 
     class Meta:
         """Class specific attributes."""

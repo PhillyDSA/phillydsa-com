@@ -20,7 +20,7 @@ from common.blocks import (
     BlockQuoteBlock,
     HeaderH1,
     Subhead,
-    LocalDuesCTA
+    CallToAction
 )
 
 
@@ -37,7 +37,7 @@ class TopLevelPage(Page):
         ('h1', HeaderH1(classname="full title")),
         ('subhead', Subhead(classname="full title")),
         ('block_quote', BlockQuoteBlock()),
-        ('dues_cta', LocalDuesCTA()),
+        ('call_to_action', CallToAction()),
     ])
     fundraising_snippet = models.ForeignKey(
         FundraisingSnippet,
