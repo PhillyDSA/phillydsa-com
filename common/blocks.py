@@ -67,7 +67,8 @@ class CallToAction(blocks.StructBlock):
     title = blocks.CharBlock(max_length=255)
     cta_copy = blocks.CharBlock(max_length=255)
     button_title = blocks.CharBlock(max_length=255)
-    button_link = blocks.PageChooserBlock()
+    button_link = blocks.PageChooserBlock(required=False)
+    button_external_link = blocks.URLBlock(required=False)
 
     class Meta:
         """Class specific attributes."""

@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="pa3 pa4-ns dtc-ns v-mid">
-          <a href=" {{ self.button_link.url }}" class="no-underline f6 tc db w-100 pv3 bg-animate bg-white ba b--light-red bw1 red br2">{{ self.button_title }}</a>
+        <a href="{% if self.button_link %}{{ self.button_link.url }}{% else %}{{ self.button_external_link}}{% endif %}" class="no-underline f6 tc db w-100 pv3 bg-animate bg-white ba b--light-red bw1 red br2">{{ self.button_title }}</a>
       </div>
     </div>
   </article>
