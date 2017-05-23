@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import calendar
-from datetime import datetime
+import datetime
+from dateutil import relativedelta
 
 from django.db import models
-from django.template.response import TemplateResponse
-
+from django.shortcuts import render
 from django.utils.text import slugify
+
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
@@ -19,10 +20,10 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
-def make_calendar():
+def make_calendar(year=datetime.datetime.now().year, month=datetime.datetime.now().month):
     """Return curr year & month & list of lists representing days in curr month."""
-    year, month = datetime.now().year, datetime.now().month
     calendar.setfirstweekday(calendar.SUNDAY)
+    year, month = int(year), int(month)
     return year, month, calendar.monthcalendar(year, month)
 
 
@@ -44,12 +45,14 @@ class MemberCalendarHomePage(RoutablePageMixin, Page):
         """Return current month events or archives by kwarg."""
         if kwargs.get('day'):
             template_name = 'member_calendar/events_by_day.html'
+        elif kwargs.get('month'):
+            template_name = 'member_calendar/events_by_month.html'
         elif kwargs.get('year'):
             template_name = 'member_calendar/events_by_year.html'
         else:
-            template_name = 'member_calendar/member_calendar_home_page.html'
+            template_name = 'member_calendar/events_by_month.html'
 
-        return TemplateResponse(
+        return render(
             request,
             template_name,
             self.get_context(request, *args, **kwargs)
@@ -59,31 +62,42 @@ class MemberCalendarHomePage(RoutablePageMixin, Page):
         """Return context and order by event date rather than pub date."""
         context = super(MemberCalendarHomePage, self).get_context(request)
         events_qs = self.get_children().live()
-        if kwargs.get('day'):
-            events = events_qs.filter(membercalendarevent__event_date__year=kwargs.get('year'))\
-                              .filter(membercalendarevent__event_date__month=kwargs.get('month'))\
-                              .filter(membercalendarevent__event_date__day=kwargs.get('day')).order_by('membercalendarevent__event_date')
-        elif kwargs.get('month'):
-            events = events_qs.filter(membercalendarevent__event_date__year=kwargs.get('year'))\
-                              .filter(membercalendarevent__event_date__month=kwargs.get('month')).order_by('membercalendarevent__event_date')
-        elif kwargs.get('year'):
-            events = events_qs.filter(membercalendarevent__event_date__year=kwargs.get('year')).order_by('membercalendarevent__event_date')
+        day, month, year = (kwargs.get('day', None),
+                            kwargs.get('month', None),
+                            kwargs.get('year', None))
+        if day:
+            events = events_qs.filter(membercalendarevent__event_date__year=year)\
+                              .filter(membercalendarevent__event_date__month=month)\
+                              .filter(membercalendarevent__event_date__day=day).order_by('membercalendarevent__event_date')
+        elif month:
+            events = events_qs.filter(membercalendarevent__event_date__year=year)\
+                              .filter(membercalendarevent__event_date__month=month).order_by('membercalendarevent__event_date')
+        elif year:
+            events = events_qs.filter(membercalendarevent__event_date__year=year).order_by('membercalendarevent__event_date')
         else:
-            events = events_qs.order_by('membercalendarevent__event_date')
-        current_year, current_month, cal = make_calendar()
+            events = events_qs.filter(membercalendarevent__event_date__month=datetime.datetime.now().month).order_by('membercalendarevent__event_date')
+
+        year, month, cal = make_calendar(year=year or datetime.datetime.now().year,
+                                         month=month or datetime.datetime.now().month)
 
         events_dict = {}
         [events_dict.update({ev.specific.event_date.day: ev}) for ev in events]
+        next_month = datetime.date(year, month, 1) + relativedelta.relativedelta(months=1)
+        previous_month = datetime.date(year, month, 1) + relativedelta.relativedelta(months=-1)
         context = {
+            'calendar': cal,
             'events': events,
             'events_dict': events_dict,
-            'calendar': cal,
-            'month_name': calendar.month_name[current_month],
-            'month': current_month,
-            'year': current_year,
             'extra_data': kwargs,
+            'month': month,
+            'month_name': calendar.month_name[month],
+            'next_month': next_month.month,
+            'next_year': next_month.year,
+            'previous_month': previous_month.month,
+            'previous_year': previous_month.year,
+            'page': self,
+            'year': year,
         }
-        print(context)
         return context
 
 
