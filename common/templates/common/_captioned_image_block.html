@@ -1,0 +1,9 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% image self.photo original as photo_image %}
+<div class="center">
+<img src="{{ photo_image.url }}"
+     alt="{{ value.caption }}"
+     class="w-100 {{ value.photo_alignment }}">
+<figcaption class="fw6 black-50 gray mb4 {{ value.caption_alignment }}">{{ value.caption }}</figcaption>
+</div>

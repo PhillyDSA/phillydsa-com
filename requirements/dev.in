@@ -2,3 +2,4 @@
 pytest
 pre-commit
 pycodestyle
+pip-tools

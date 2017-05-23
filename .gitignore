@@ -96,3 +96,7 @@ ENV/
 .ropeproject
 
 db.sqlite3
+conf.ini
+media
+node_modules
+*.ipynb
