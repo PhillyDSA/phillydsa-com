@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-top_level_page{% endblock %}
+
+{% block content %}
+    <div class="measure-wide center">
+        <h1 class="center measure">{{ page.title }}</h1>
+        <article class="lh-copy fw4 ">
+            {% include_block page.body %}
+        </article>
+    </div>
+
+    <div class="measure center">
+    {% if page.fundraising_snippet %}
+        {{ page.fundraising_snippet.embed_code|safe }}
+    {% endif %}
+    </div>
+{% endblock %}

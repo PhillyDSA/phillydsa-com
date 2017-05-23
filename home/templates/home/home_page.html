@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    <article class="measure-wide center w-100 lh-copy fw4 ">
+    {% include_block page.body %}
+    </article>
+{% endblock %}
