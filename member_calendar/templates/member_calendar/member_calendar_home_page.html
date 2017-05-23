@@ -1,34 +1,47 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
+{% load common_tags %}
 
 {% block body_class %}template-membercalendarhomepage{% endblock %}
 
 {% block content %}
-
-    <article class="cf pa3 mw9 center">
-        <header class="w-100-l pa3-m pa4-l">
-            <h1 class='lh-title f1'>
-                {{ page.title }}
-            </h1>
-            <div class="f3 lh-subtitle measure-title">
-                {{ page.intro|richtext }}
+    <div class="w-100">
+        <h1 class="f1 tc mb5">{{ month_name }} {{ year }}</h1>
+        <div class="dt center">
+            <div class="dt">
+                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Su </div>
+                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Mo </div>
+                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Tu </div>
+                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> We </div>
+                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Th </div>
+                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Fr </div>
+                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Sa </div>
             </div>
-        </header>
-
-        <section class="w-100">
-        {% for event in events %}
-            <div class="border event-page-item fl w-100 w-50-m w-33-l pv3 pa3-m pa4-l" style="height: 100%">
-                <p class="f6 lh-copy measure">
-                    <a href="{% pageurl event %}" class="f3 fw6 red lh-solid link hover-red black ">{{ event.specific.title }}</a><br>
-                    {{ event.specific.event_date }}
-                    <br>
-                    {{ event.specific.body }}
-                </p>
+        {% for week in calendar %}
+            <div class="dt code">
+            {% for day in week %}
+                {% if day != 0 %}
+                    {% if events_dict|get_item:day %}
+                        <div class="w3 pa1 h3 v-mid dtc tc gray">
+                            <a href="{{year}}/{{ month }}/{{day}}" class="dib pa3 bg-red white br-100">{{ day }}</a>
+                        </div>
+                    {% else %}
+                        <div class="w3 pa2 h3 v-mid dtc br-100 tc gray">{{ day }}</div>
+                    {% endif %}
+                {% else %}
+                    <div class="w3 pa2 h3 v-mid dtc br-100 tc gray">&nbsp;</div>
+                {% endif %}
+            {% endfor %}
             </div>
         {% endfor %}
-        </section>
-
-    </article>
-
+        </div>
+        {% for event in events_dict %}
+            <article class="dark-gray mv4 measure-wide w-80 pa3-ns">
+                <div class="red fw1 f2"><a href="{{ event.specific.slug }}" class="fw3">{{ event.specific.event_date }}</a></div>
+                <h1 class="fw4 f5 f4-ns">{{ event.specific.title }}</h1>
+                <p class="f6 lh-copy measure mt2">{{ event.specific.body }}</p>
+            </article>
+        {% endfor %}
+    </div>
 {% endblock %}
