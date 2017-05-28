@@ -4,20 +4,53 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js fw4"> <!--<![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js fw4"> <!--<![endif]-->
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>
-            {% block title %}
-                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-            {% endblock %}
-            {% block title_suffix %}
-                {% with self.get_site.site_name as site_name %}
-                    {% if site_name %}- {{ site_name }}{% endif %}
-                {% endwith %}
-            {% endblock %}
-        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+
+        <link rel="canonical" href="https://www.phillydsa.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="communism, socialism, philadelphia, phillydsa, dsa, philly" >
+        <meta name="description" content="Home of the Philadelphia Local of the Democratic Socialists of America">
+
+        <!--FACEBOOK-->
+        <meta property="og:site_name" content="PhillyDSA">
+        <meta property="og:url" content="https://www.phillydsa.com" >
+        <meta property="og:description" content="Home of the Philadelphia Local of the Democratic Socialists of America" >
+        <meta property="og:image" content="https://www.phillydsa.com/static/imgs/DSAlogo.png" >
+        <meta property="fb:app_id" content="" >
+        <meta property="og:type" content="website" >
+        <meta property="og:locale" content="en-US" >
+
+        <!--TWITTER-->
+        <meta property="twitter:card" content="summary">
+        <meta property="twitter:description" content="{% block page_description %}Home of the Philadelphia Local of the Democratic Socialists of America{% endblock %}" >
+        <meta property="twitter:creator" content="@phillydsa" >
+        <meta property="twitter:url" content="https://www.phillydsa.com" >
+        <meta property="twitter:image" content="https://www.phillydsa.com/static/imgs/DSAlogo.png" >
+        <meta property="twitter:image:alt" content="PhillyDSA">
+
+        {% block title %}
+            {% if self.seo_title %}
+                <title>{{ self.seo_title }}</title>
+                <meta property="og:title" content="{{ self.seo_title }}">
+                <meta property="twitter:title" content="{{ self.seo_title }}">
+            {% else %}
+                <title>{{ self.title }}</title>
+                <meta property="og:title" content="{{ self.self.title }}">
+                <meta property="twitter:title" content="{{ self.self.title }}">
+                {{ self.title }}
+            {% endif %}
+        {% endblock %}
+
+        {% block title_suffix %}
+            {% with self.get_site.site_name as site_name %}
+                {% if site_name %}- {{ site_name }}{% endif %}
+            {% endwith %}
+        {% endblock %}
+
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -76,6 +109,19 @@
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/config.js' %}"></script>
+        <script type='application/ld+json'>
+            {
+                "@context" : "http://schema.org",
+                "@type" : "Organization",
+                "name" : "Philly DSA",
+                "url" : "https://www.phillydsa.com/",
+                "logo": "https://www.phillydsa.com/static/imgs/DSAlogo.png",
+                "sameAs" : [
+                    "https://www.facebook.com/phillyDSA",
+                    "https://www.twitter.com/phillyDSA"
+                ]
+            }
+        </script>
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
