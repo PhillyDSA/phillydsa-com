@@ -32,24 +32,20 @@
         <meta property="twitter:image" content="https://www.phillydsa.com/static/imgs/DSAlogo.png" >
         <meta property="twitter:image:alt" content="PhillyDSA">
 
+
+        {% with self.get_site.site_name as site_name %}
         {% block title %}
             {% if self.seo_title %}
-                <title>{{ self.seo_title }}</title>
-                <meta property="og:title" content="{{ self.seo_title }}">
-                <meta property="twitter:title" content="{{ self.seo_title }}">
+                <title>{{ self.seo_title }}{% if site_name %} - {{ site_name }}{% endif %}</title>
+                <meta property="og:title" content="{{ self.seo_title }}{% if site_name %} - {{ site_name }}{% endif %}">
+                <meta property="twitter:title" content="{{ self.seo_title }}{% if site_name %} - {{ site_name }}{% endif %}">
             {% else %}
-                <title>{{ self.title }}</title>
-                <meta property="og:title" content="{{ self.self.title }}">
-                <meta property="twitter:title" content="{{ self.self.title }}">
-                {{ self.title }}
+                <title>{{ self.title }}{% if site_name %} - {{ site_name }}{% endif %}</title>
+                <meta property="og:title" content="{{ self.title }}{% if site_name %} - {{ site_name }}{% endif %}">
+                <meta property="twitter:title" content="{{ self.title }}{% if site_name %} - {{ site_name }}{% endif %}">
             {% endif %}
         {% endblock %}
-
-        {% block title_suffix %}
-            {% with self.get_site.site_name as site_name %}
-                {% if site_name %}- {{ site_name }}{% endif %}
-            {% endwith %}
-        {% endblock %}
+        {% endwith %}
 
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

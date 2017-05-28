@@ -15,7 +15,8 @@
         <span itemprop="streetAddress">{{ event.location_street_address }}</span><br>
         <span itemprop="addressLocality">{{ event.location_city }}</span>, <span itemprop="addressRegion">{{ event.location_state }}</span> <span itemprop="postalCode">{{ event.location_zip_code }}</span>
       </div>
-      <a href="http://maps.google.com/?q={{ event.location_street_address}},{{event.location_city}},{{event.location_state}},{{event.location_zip_code}}" target="_blank">&rarr; Google Maps</a>
+      <a href="http://maps.google.com/?q={{ event.location_street_address}},{{event.location_city}},{{event.location_state}},{{event.location_zip_code}}" target="_blank">&rarr; Google Maps</a><br>
+      <a href="{{ event.url }}?format=ical" target="_blank">&rarr; iCal</a>
     </div>
   </div>
   <div itemprop="description">{{ event.body }}</div>
