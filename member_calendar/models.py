@@ -22,12 +22,7 @@ from wagtail.wagtailadmin.edit_handlers import (
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
-
-def make_calendar(year=datetime.datetime.now().year, month=datetime.datetime.now().month):
-    """Return curr year & month & list of lists representing days in curr month."""
-    calendar.setfirstweekday(calendar.SUNDAY)
-    year, month = int(year), int(month)
-    return year, month, calendar.monthcalendar(year, month)
+from member_calendar.utils import make_calendar
 
 
 class MemberCalendarHomePage(RoutablePageMixin, Page):
