@@ -113,6 +113,12 @@ class MemberCalendarEvent(Page):
         ('image', ImageChooserBlock()),
     ])
 
+    location_street_address = models.CharField(max_length=255, blank=True)
+    location_city = models.CharField(max_length=255, blank=True)
+    location_zip_code = models.CharField(max_length=5, blank=True)
+    location_state = models.CharField(max_length=100, blank=True)
+    location_name = models.CharField(max_length=500, blank=True)
+
     search_fields = Page.search_fields + [
         index.SearchField('body'),
     ]
@@ -121,6 +127,11 @@ class MemberCalendarEvent(Page):
         FieldPanel('event_date'),
         FieldPanel('event_start_time'),
         FieldPanel('event_end_time'),
+        FieldPanel('location_name'),
+        FieldPanel('location_street_address'),
+        FieldPanel('location_city'),
+        FieldPanel('location_state'),
+        FieldPanel('location_zip_code'),
         StreamFieldPanel('body'),
     ]
 
@@ -130,6 +141,26 @@ class MemberCalendarEvent(Page):
             FieldPanel('show_in_menus'),
             FieldPanel('search_description'),
         ])]
+
+    @property
+    def iso_start_time(self):
+        """Return ISO-formatted start time for event."""
+        return datetime.datetime(
+            self.event_date.year,
+            self.event_date.month,
+            self.event_date.day,
+            self.event_start_time.hour,
+            self.event_start_time.minute).isoformat()
+
+    @property
+    def iso_end_time(self):
+        """Return ISO-formatted end time for event."""
+        return datetime.datetime(
+            self.event_date.year,
+            self.event_date.month,
+            self.event_date.day,
+            self.event_end_time.hour,
+            self.event_end_time.minute).isoformat()
 
     def save(self, *args, **kwargs):
         """Override to have a more specific slug w/ date & title."""

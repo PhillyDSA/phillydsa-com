@@ -1,0 +1,22 @@
+{% load wagtailcore_tags %}
+
+<article itemscope=itemscope itemtype="http://schema.org/Event" class="center measure-wide">
+  <h1><a href="{% pageurl event %}" itemprop="name">{{ event.title }}</a></h1>
+  <div class="meta bt bw2 pv4">
+    <div class="time">
+      <span itemprop="startDate" content="{{ event.iso_start_time }}">{{ event.event_date }}</span> at {{ event.event_start_time }} to <span itemprop="endDate" content="{{ event.iso_end_time }}">{{ event.event_end_time }}</span>
+    </div>
+
+    <div class="mt2" itemprop="location" itemscope itemtype="http://schema.org/Place">
+      {% if event.location_name %}
+      <span itemprop="name">{{ event.location_name }}</span>
+      {% endif %}
+      <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="mb2">
+        <span itemprop="streetAddress">{{ event.location_street_address }}</span><br>
+        <span itemprop="addressLocality">{{ event.location_city }}</span>, <span itemprop="addressRegion">{{ event.location_state }}</span> <span itemprop="postalCode">{{ event.location_zip_code }}</span>
+      </div>
+      <a href="http://maps.google.com/?q={{ event.location_street_address}},{{event.location_city}},{{event.location_state}},{{event.location_zip_code}}" target="_blank">&rarr; Google Maps</a>
+    </div>
+  </div>
+  <div itemprop="description">{{ event.body }}</div>
+</article>
