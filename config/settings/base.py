@@ -19,7 +19,9 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
+SECRET_KEY = 'test'
+
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'a4a78554.ngrok.io']
 
 # Application definition
 

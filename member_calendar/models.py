@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 import calendar
 import datetime
-from dateutil import relativedelta
 
 from django.db import models
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.text import slugify
+
+from icalendar import Event, Calendar
+from dateutil import relativedelta
 
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore import blocks
@@ -19,12 +22,7 @@ from wagtail.wagtailadmin.edit_handlers import (
 from wagtail.wagtailsearch import index
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
-
-def make_calendar(year=datetime.datetime.now().year, month=datetime.datetime.now().month):
-    """Return curr year & month & list of lists representing days in curr month."""
-    calendar.setfirstweekday(calendar.SUNDAY)
-    year, month = int(year), int(month)
-    return year, month, calendar.monthcalendar(year, month)
+from member_calendar.utils import make_calendar
 
 
 class MemberCalendarHomePage(RoutablePageMixin, Page):
@@ -68,14 +66,18 @@ class MemberCalendarHomePage(RoutablePageMixin, Page):
         if day:
             events = events_qs.filter(membercalendarevent__event_date__year=year)\
                               .filter(membercalendarevent__event_date__month=month)\
-                              .filter(membercalendarevent__event_date__day=day).order_by('membercalendarevent__event_date')
+                              .filter(membercalendarevent__event_date__day=day)\
+                              .order_by('membercalendarevent__event_date')
         elif month:
             events = events_qs.filter(membercalendarevent__event_date__year=year)\
-                              .filter(membercalendarevent__event_date__month=month).order_by('membercalendarevent__event_date')
+                              .filter(membercalendarevent__event_date__month=month)\
+                              .order_by('membercalendarevent__event_date')
         elif year:
-            events = events_qs.filter(membercalendarevent__event_date__year=year).order_by('membercalendarevent__event_date')
+            events = events_qs.filter(membercalendarevent__event_date__year=year)\
+                              .order_by('membercalendarevent__event_date')
         else:
-            events = events_qs.filter(membercalendarevent__event_date__month=datetime.datetime.now().month).order_by('membercalendarevent__event_date')
+            events = events_qs.filter(membercalendarevent__event_date__month=datetime.datetime.now().month)\
+                              .order_by('membercalendarevent__event_date')
 
         year, month, cal = make_calendar(year=year or datetime.datetime.now().year,
                                          month=month or datetime.datetime.now().month)
@@ -142,27 +144,55 @@ class MemberCalendarEvent(Page):
             FieldPanel('search_description'),
         ])]
 
+    def serve(self, request):
+        """Serve request based on options in GET method to add ical attachment."""
+        if "format" in request.GET:
+            if request.GET['format'] == 'ical':
+                # Export to ical format
+                response = HttpResponse(self.to_ical(), content_type='text/calendar')
+                response['Content-Disposition'] = 'attachment; filename=' + self.slug + '.ics'
+                return response
+            else:
+                # Unrecognised format error
+                message = 'Could not export event\n\nUnrecognised format: ' + request.GET['format']
+                return HttpResponse(message, content_type='text/plain')
+        else:
+            # Display event page as usual
+            return super().serve(request)
+
+    def event_datetime(self, ev_date=None, ev_time=None):
+        """Return a combined datetime.datetime object for the event."""
+        return datetime.datetime(ev_date.year, ev_date.month, ev_date.day,
+                                 ev_time.hour, ev_time.minute)
+
     @property
     def iso_start_time(self):
         """Return ISO-formatted start time for event."""
-        return datetime.datetime(
-            self.event_date.year,
-            self.event_date.month,
-            self.event_date.day,
-            self.event_start_time.hour,
-            self.event_start_time.minute).isoformat()
+        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_start_time).isoformat()
 
     @property
     def iso_end_time(self):
         """Return ISO-formatted end time for event."""
-        return datetime.datetime(
-            self.event_date.year,
-            self.event_date.month,
-            self.event_date.day,
-            self.event_end_time.hour,
-            self.event_end_time.minute).isoformat()
+        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_end_time).isoformat()
 
     def save(self, *args, **kwargs):
         """Override to have a more specific slug w/ date & title."""
         self.slug = "{0}-{1}".format(self.event_date.strftime("%Y-%m-%d"), slugify(self.title))
         super().save(*args, **kwargs)
+
+    def to_ical(self):
+        """Return an iCal compatible file representing the event."""
+        cal = Calendar()
+        event = Event()
+
+        event.add('summary', self.title)
+        event.add('uid', '{0}@phillydsa.com'.format(self.slug))
+        event.add('dtstart', self.event_datetime(self.event_date, self.event_start_time))
+        event.add('dtend', self.event_datetime(self.event_date, self.event_end_time))
+        event.add('location', ','.join([self.location_street_address,
+                                        self.location_city,
+                                        self.location_state,
+                                        self.location_zip_code]))
+        event.add('organizer', 'PhillyDSA')
+        cal.add_component(event)
+        return cal.to_ical()

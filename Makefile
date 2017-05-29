@@ -14,7 +14,8 @@ lint:
 	pre-commit run -a
 
 test:
-	pytest
+	pytest --cov
+	coverage html
 
 dev:
 	pyenv install -s 3.6.0
