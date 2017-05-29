@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 SECRET_KEY = 'test'
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'a4a78554.ngrok.io']
+ALLOWED_HOSTS = ['192.168.1.7', '0.0.0.0', 'localhost', '127.0.0.1', 'a4a78554.ngrok.io']
 
 # Application definition
 

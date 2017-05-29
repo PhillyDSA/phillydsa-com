@@ -7,7 +7,7 @@
 
 {% block content %}
   <div class="w-100">
-    <h1 class="f1 tc mb2">{{ extra_data|get_item:'day' }} {{ month_name }} {{ year }}</h1>
+    <h1 class="f1 tc mb5 mt0 mt2-ns">{{ extra_data|get_item:'day' }} {{ month_name }} {{ year }}</h1>
     {% for event in events %}
         {% with event.specific as event %}
             {% include "member_calendar/_event.html" %}
