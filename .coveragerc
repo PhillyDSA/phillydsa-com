@@ -9,8 +9,6 @@ omit=
     src/*
     /**/migrations*
     */tests.py
-include=
-    member_calendar/*
 branch = true
 
 [html]
