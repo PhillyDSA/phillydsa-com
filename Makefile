@@ -17,6 +17,13 @@ test:
 	pytest --cov
 	coverage html
 
+env:
+	pyenv install -s 3.6.0
+	pyenv local 3.6.0
+
+install:
+	pip install -Ur requirements/dev.txt
+
 dev:
 	pyenv install -s 3.6.0
 	# Make will continue here in the event that the virtualenv already exists
@@ -30,3 +37,6 @@ server:
 
 gulp:
 	gulp
+
+ci: clean env info test
+	codecov
