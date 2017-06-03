@@ -1,0 +1,4 @@
+- name: Install Supervisor
+  apt: name=supervisor state=present
+  notify:
+    - Start Supervisord

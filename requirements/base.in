@@ -4,3 +4,4 @@ wagtail
 wagtailmenus
 python-dateutil
 icalendar
+gunicorn
