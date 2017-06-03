@@ -1,0 +1,13 @@
+---
+- name: Add Nginx Repository
+  apt_repository: repo='ppa:nginx/stable' state=present
+
+- name: Install Nginx
+  apt: name=nginx state=latest update_cache=true
+  notify:
+   - Start Nginx
+
+- name: Disable Default Config
+  file: dest=/etc/nginx/sites-enabled/default state=absent
+  notify:
+    - Reload Nginx

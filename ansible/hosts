@@ -1,0 +1,5 @@
+[ansible]
+127.0.0.1:2222 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user='ubuntu' ansible_ssh_private_key_file='/home/jeremy/coding/contrib/PhillyDSA/phillydsa-com/.vagrant/machines/default/virtualbox/private_key'
+
+[web]
+104.131.121.237

@@ -100,3 +100,4 @@ conf.ini
 media
 node_modules
 *.ipynb
+.vagrant

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+SERVERDIR={{ http_root }}/{{ domain }}/
+VENVDIR={{ http_root }}/venvs/{{ domain }}
+
+
+# Activate the virtual environment
+cd $SERVERDIR
+source $VENVDIR/bin/activate
+
+export PYTHONPATH=$SERVERDIR:$PYTHONPATH
+
+exec $VENVDIR/bin/python manage.py migrate --settings {{ django_settings_module }}
