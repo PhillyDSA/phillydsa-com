@@ -1,0 +1,15 @@
+[run]
+omit=
+    venv
+    */python?.?/*
+    */site-packages/*
+    .tox/*
+    static
+    site_assets/*
+    src/*
+    /**/migrations*
+    */tests.py
+branch = true
+
+[html]
+directory = htmlcov

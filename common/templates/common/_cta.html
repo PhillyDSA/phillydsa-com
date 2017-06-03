@@ -1,13 +1,14 @@
 {% load wagtailcore_tags %}
-<section class="pv5">
+<section class="pv2 pv5-ns">
   <article class="mw8 center br2 bg-red">
+    <h2 class="fw6 ph3 ph4-ns pt3 pb1 white mt0 mb0 ">{{ self.title }}</h2>  <!--headline-->
     <div class="dt-ns dt--fixed-ns w-100">
-      <div class="pa3 pa4-ns dtc-ns v-mid">
+      <div class="pa3 pa4-ns dtc-ns w-60-ns v-mid"> <!--copy-->
         <div>
-            <h2 class="fw6 white mt0 mb3">{{ self.title }}</h2><p class="white fw4 measure lh-copy mv0">{{ self.cta_copy }}</p>
+            <p class="white fw4 measure lh-copy mv0">{{ self.cta_copy }}</p>
         </div>
       </div>
-      <div class="pa3 pa4-ns dtc-ns v-mid">
+      <div class="pa3 pa4-ns dtc-ns v-mid">  <!--button-->
         <a href="{% if self.button_link %}{{ self.button_link.url }}{% else %}{{ self.button_external_link}}{% endif %}" class="no-underline f6 tc db w-100 pv3 bg-animate bg-white ba b--light-red bw1 red br2">{{ self.button_title }}</a>
       </div>
     </div>

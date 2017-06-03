@@ -1,0 +1,9 @@
+[program:{{ domain }}]
+command         = {{ http_root }}/{{ domain }}/start_server.sh
+autostart       = true
+autoreload      = true
+user            = {{ http_user }}
+stdout_logfile  = /var/log/{{ domain }}-supervisor.log
+sterr_logfile   = /var/log/{{ domain }}-supervisor-error.log
+redirect_stderr = true
+environment     = LANG=en_US.UTF-8,LC_ALL=en_US.UTF-8
