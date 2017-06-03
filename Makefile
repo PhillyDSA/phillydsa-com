@@ -42,4 +42,4 @@ ci: clean env info test
 	codecov
 
 ans_deploy:
-	ansible-playbook --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -i ansible/hosts ansible/phillydsa-com.yml -vvvv
+	ansible-playbook --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -i ansible/hosts ansible/phillydsa-com.yml -vvvv --vault-password-file ~/.vault_pass.txt

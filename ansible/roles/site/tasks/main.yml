@@ -1,4 +1,7 @@
 ---
+- name: Import Secrets
+  include_vars: secret_keys.yml
+
 - name: Add Site Config
   template: src=nginx.conf.j2 dest=/etc/nginx/sites-available/{{ domain }}.conf owner=root group=root
 
@@ -26,18 +29,18 @@
     force: yes
     key_file: "/root/.ssh/id_deploy"
 
+- name: Copy conf.ini
+  copy:
+    content: "{{ django_secret_key }}"
+    dest: "{{ http_root }}/{{ domain }}/conf.ini"
+    owner: "{{ http_user }}"
+    group: "{{ http_user }}"
+
 - name: Install Virtual Environment & Requirements
   pip:
     requirements: "{{ http_root }}/{{ domain }}/requirements/base.txt"
     virtualenv: "{{ http_root }}/venvs/{{ domain }}"
     virtualenv_python: python3.5
-
-- name: Copy conf.ini
-  copy:
-    src: ../conf.ini
-    dest: "{{ http_root }}/{{ domain }}/conf.ini"
-    owner: "{{ http_user }}"
-    group: "{{ http_user }}"
 
 - name: Create static files directory
   file: dest={{ http_root }}/{{ domain }}/config/static mode=0775 owner={{ http_user }} group={{ http_user }} state=directory
