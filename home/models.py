@@ -6,7 +6,6 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
@@ -16,6 +15,11 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from common import blocks as common_blocks
 from common.snippets import FundraisingSnippet
 
+<<<<<<< HEAD
+=======
+from common.blocks import STRUCT_BLOCKS
+
+>>>>>>> 3fdb172... init pass for creating bulletin emails
 
 class HomePage(Page):
     """Controls rendering of PhillyDSA home page.

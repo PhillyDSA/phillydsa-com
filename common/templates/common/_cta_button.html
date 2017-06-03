@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+<section class="pv2 pv5-ns">
+  <article class="mw8 center br2 bg-red">
+    <div class="dt-ns dt--fixed-ns w-100">
+      <div class="pa3 pa4-ns dtc-ns v-mid">  <!--button-->
+        <a href="{% if self.button_link %}{{ self.button_link.url }}{% else %}{{ self.button_external_link}}{% endif %}" class="no-underline f6 tc db w-100 pv3 bg-animate bg-white ba b--light-red bw1 red br2">{{ self.cta_copy }}</a>
+      </div>
+    </div>
+  </article>
+</section>
