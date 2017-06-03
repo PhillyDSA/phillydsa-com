@@ -1,0 +1,19 @@
+---
+- name: Update repositories
+  apt: update_cache=yes
+
+- name: Install fail2ban
+  apt: name=fail2ban state=present
+
+- name: Add fail2ban Config
+  template: src=fail2ban/jail.local.j2 dest=/etc/fail2ban/jail.local owner=root group=root
+  notify:
+    - Restart fail2ban
+
+- name: Disable Root Login
+  template: src=sshd/sshd_config.j2 dest=/etc/ssh/sshd_config owner=root group=root
+  notify:
+    - Restart sshd
+
+- name: Install NPM
+  apt: name=npm state=present

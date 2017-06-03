@@ -14,7 +14,15 @@ lint:
 	pre-commit run -a
 
 test:
-	pytest
+	pytest --cov
+	coverage html
+
+env:
+	pyenv install -s 3.6.0
+	pyenv local 3.6.0
+
+install:
+	pip install -Ur requirements/dev.txt
 
 dev:
 	pyenv install -s 3.6.0
@@ -25,7 +33,13 @@ dev:
 	pre-commit install
 
 server:
-	python manage.py runserver 127.0.0.1:8000
+	python manage.py runserver 0.0.0.0:8000
 
 gulp:
 	gulp
+
+ci: clean env info test
+	codecov
+
+ans_deploy:
+	ansible-playbook --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -i ansible/hosts ansible/phillydsa-com.yml -vvvv --vault-password-file ~/.vault_pass.txt

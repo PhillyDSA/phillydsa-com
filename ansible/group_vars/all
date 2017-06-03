@@ -1,0 +1,15 @@
+---
+ansible_python_interpreter: /usr/bin/python2.7
+http_user: www-data
+http_root: /var/www/public
+
+domain: phillydsa.com
+git_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_deploy.pub') }}"
+git_ssh_priv_key: "{{ lookup('file', '~/.ssh/id_deploy') }}"
+
+github_repo: phillydsa-com
+github_user: PhillyDSA
+
+django_port: 8484
+django_settings_module: config.settings.production
+django_wsgi_module: config.wsgi

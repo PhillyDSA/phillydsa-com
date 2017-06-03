@@ -1,0 +1,25 @@
+- hosts: ansible
+  gather_facts: False
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: apt-get update
+    raw: apt-get update -qq
+  - name: Install python 2.7
+    raw: apt-get install -qq python2.7
+
+- hosts:
+    - ansible
+  vars_files:
+    - group_vars/all
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - init
+    - git
+    - python
+    - supervisord
+    - nginx
+    - site

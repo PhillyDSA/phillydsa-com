@@ -11,11 +11,13 @@ django-taggit==0.22.0     # via wagtail
 django-treebeard==4.1.0   # via wagtail
 django==1.10.6
 djangorestframework==3.6.2  # via wagtail
+gunicorn==19.7.1
 html5lib==0.999999999     # via wagtail
+icalendar==3.11.4
 olefile==0.44             # via pillow
 pillow==4.0.0             # via wagtail
 python-dateutil==2.6.0
-pytz==2017.2              # via django-modelcluster
+pytz==2017.2              # via django-modelcluster, icalendar
 requests==2.13.0          # via wagtail
 six==1.10.0               # via html5lib, python-dateutil
 unidecode==0.4.20         # via wagtail

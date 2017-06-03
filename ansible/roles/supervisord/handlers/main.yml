@@ -1,0 +1,5 @@
+- name: Start Supervisord
+  service: name=supervisor state=started
+
+- name: Restart Supervisord
+  service: name=supervisor state=restarted

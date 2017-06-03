@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/PhillyDSA/phillydsa-com.svg?style=svg)](https://circleci.com/gh/PhillyDSA/phillydsa-com) [![codecov](https://codecov.io/gh/PhillyDSA/phillydsa-com/branch/develop/graph/badge.svg)](https://codecov.io/gh/PhillyDSA/phillydsa-com)
 # Philly DSA Website
 
 Django site for Philly DSA
