@@ -43,3 +43,6 @@ ci: clean env info test
 
 ans_deploy:
 	ansible-playbook --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -i ansible/hosts ansible/phillydsa-com.yml -vvvv --vault-password-file ~/.vault_pass.txt
+
+deploy:
+	ansible-playbook --private-key=~/.ssh/id_rsa -u root -i ansible/hosts ansible/phillydsa-com.yml -vv --vault-password-file ~/.vault_pass.txt

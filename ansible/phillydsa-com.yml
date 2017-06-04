@@ -10,7 +10,7 @@
     raw: apt-get install -qq python2.7
 
 - hosts:
-    - ansible
+    - web
   vars_files:
     - group_vars/all
   become: yes
