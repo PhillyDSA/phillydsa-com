@@ -26,6 +26,9 @@ ALLOWED_HOSTS = ['192.168.1.7', '0.0.0.0', 'localhost', '127.0.0.1', 'a4a78554.n
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sitemaps',
+    'wagtail.contrib.wagtailsitemaps',
+
     # First party apps
     'common',
     'member_calendar',

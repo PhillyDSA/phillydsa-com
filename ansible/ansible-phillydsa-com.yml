@@ -1,4 +1,4 @@
-- hosts: web
+- hosts: ansible
   gather_facts: False
   become: yes
   become_user: root
@@ -10,7 +10,7 @@
     raw: apt-get install -qq python2.7
 
 - hosts:
-    - web
+    - ansible
   vars_files:
     - group_vars/all
   become: yes
