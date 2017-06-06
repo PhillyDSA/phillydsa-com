@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load menu_tags %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -94,17 +94,8 @@
             </div></a>
         </header>
 
-        <nav class="measure-title center pa2 mh0 tc ttu fw3 mb4">
-            <a href="/" class="fw3 dib pa2-ns pa3 link hover-red black">Home</a>
-            <a href="/about" class="fw3 dib pa2-ns pa3 link hover-red black">About Us</a>
-            <a href="/member-calendar" class="fw3 dib pa2-ns pa3 link hover-red black">Calendar</a>
-            <a href="/faq" class="fw3 dib pa2-ns pa3 link hover-red black">FAQ</a>
-            <a href="/join" class="fw3 dib pa2-ns pa3 link hover-red black">Join the Movement</a>
-            <!--
-               -<a href="/campaign-proposal" class="fw3 dib pa2-ns pa3 link hover-red black">Campaign Proposal</a>
-               -->
-            <a href="/contact-us" class="fw3 dib pa2-ns pa3 link hover-red black">Contact Us</a>
-        </nav>
+        {% main_menu template="common/menu.html"%}
+
         {% endblock %}
 
         <main class="pa2 center w-100">
