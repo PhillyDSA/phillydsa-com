@@ -166,19 +166,37 @@ class MemberCalendarEvent(Page):
                                  ev_time.hour, ev_time.minute)
 
     @property
+    def event_start_dt(self):
+        """Return event start time as a datetime.datetime obj."""
+        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_start_time)
+
+    @property
+    def event_end_dt(self):
+        """Return event end time as a datetime.datetime obj."""
+        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_end_time)
+
+    @property
     def iso_start_time(self):
         """Return ISO-formatted start time for event."""
-        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_start_time).isoformat()
+        return self.event_start_dt.isoformat()
 
     @property
     def iso_end_time(self):
         """Return ISO-formatted end time for event."""
-        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_end_time).isoformat()
+        return self.event_end_dt.isoformat()
 
     def save(self, *args, **kwargs):
         """Override to have a more specific slug w/ date & title."""
         self.slug = "{0}-{1}".format(self.event_date.strftime("%Y-%m-%d"), slugify(self.title))
         super().save(*args, **kwargs)
+
+    @property
+    def event_location(self):
+        """Return an event location or "To be determined"."""
+        if not all([self.location_street_address, self.location_city, self.location_state, self.location_zip_code]):
+            return "To be determined"
+        else:
+            return ", ".join([self.location_street_address, self.location_city, self.location_state]) + self.location_zip_code
 
     def to_ical(self):
         """Return an iCal compatible file representing the event."""
