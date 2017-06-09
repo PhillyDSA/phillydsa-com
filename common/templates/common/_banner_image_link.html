@@ -1,0 +1,18 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% image self.photo original as photo_image %}
+
+<div class="center">
+    {% if value.internal_link or value.external_link %}
+    <a href="
+        {% if value.internal_link %}
+            {{ value.internal_link.url }}
+        {% else %}
+            {{ value.external_link }}
+        {% endif %}">
+        <img src="{{ photo_image.url }}" alt="{{ value.alt_text }}">
+    </a>
+    {% else %}
+    <img src="{{ photo_image.url }}" alt="{{ value.alt_text }}">
+    {% endif %}
+</div>
