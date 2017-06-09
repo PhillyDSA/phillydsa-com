@@ -77,8 +77,13 @@ class CallToAction(blocks.StructBlock):
         template = 'common/_cta.html'
 
 
-class BannerImageLink(blocks.StructBlock):
-    """Create a full-width banner image linked to a page."""
+class BannerImage(blocks.StructBlock):
+    """Create a full-width banner image.
+
+    Optionally, you can specify a link and clicking on the image will
+    go to that page or URL.
+
+    """
 
     photo = ImageChooserBlock(required=True)
     internal_link = blocks.PageChooserBlock(required=False)

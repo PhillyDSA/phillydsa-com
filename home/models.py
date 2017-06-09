@@ -24,7 +24,7 @@ class HomePage(Page):
     """
 
     body = StreamField([
-        ('banner_image', common_blocks.BannerImageLink()),
+        ('banner_image', common_blocks.BannerImage()),
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', common_blocks.CaptionImageBlock()),
