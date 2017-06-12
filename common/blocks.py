@@ -103,6 +103,11 @@ class CTAButton(blocks.StructBlock):
     button_copy = blocks.CharBlock(max_length=32)
     button_link = blocks.PageChooserBlock(required=False)
     button_external_link = blocks.URLBlock(required=False)
+    alignment = blocks.ChoiceBlock(choices=(
+        ('tl', 'Left'),
+        ('tr', 'Right'),
+        ('tc', 'Center'))
+    )
 
     class Meta:
         """Specific attributes."""

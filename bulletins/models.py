@@ -19,7 +19,7 @@ from wagtail.wagtailadmin.edit_handlers import (
 from wagtail.wagtailsearch import index
 
 from member_calendar.utils import make_calendar
-from common.blocks import STRUCT_BLOCKS
+from common import blocks as common_blocks
 
 
 class BulletinHomePage(RoutablePageMixin, Page):
@@ -100,7 +100,14 @@ class BulletinEmail(Page):
 
     bulletin_date = models.DateField("Bulletin Date")
 
-    body = StreamField(STRUCT_BLOCKS)
+    body = StreamField([
+        ('banner_image', common_blocks.BannerImage()),
+        ('heading', common_blocks.HeaderH1()),
+        ('subheading', common_blocks.Subhead()),
+        ('block_quote', common_blocks.BlockQuote()),
+        ('call_to_action', common_blocks.CallToAction()),
+        ('cta_button', common_blocks.CTAButton()),
+        ('captioned_image', common_blocks.CaptionImageBlock())])
 
     search_fields = Page.search_fields + [
         index.SearchField('body'),
