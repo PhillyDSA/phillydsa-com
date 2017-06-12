@@ -141,7 +141,7 @@ class BulletinEmail(Page):
     def to_email(self, *args, **kwargs):
         """Export a bulletin as an HTML file for emailing."""
         request = kwargs.get('request', None)
-        template_string = render_to_string(self.template, self.get_context(request))
+        template_string = render_to_string("bulletins/bulletin_html_email.html", self.get_context(request))
         prepared_resp = premailer.Premailer(template_string, base_url=settings.BASE_URL).transform()
         return prepared_resp
 
@@ -150,7 +150,7 @@ class BulletinEmail(Page):
         if "format" in request.GET:
             if request.GET['format'] == 'email':
                 # Export to plaint text email format
-                response = HttpResponse(self.to_email(request=request), content_type='text/html')
+                response = HttpResponse(self.to_email(request=request), content_type='text/plain; charset="UTF8"')
                 return response
             else:
                 # Unrecognised format error
