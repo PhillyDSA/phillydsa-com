@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from dateutil import relativedelta
 
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import (
@@ -25,7 +26,7 @@ from common import blocks as common_blocks
 class BulletinHomePage(RoutablePageMixin, Page):
     """Page to display all email bulletins."""
 
-    subpage_types = ['EmailBulletin']
+    subpage_types = ['BulletinEmail']
 
     @route(r'^$')
     @route(r'^(?P<year>[0-9]{4})/$')
@@ -102,18 +103,22 @@ class BulletinEmail(Page):
 
     body = StreamField([
         ('banner_image', common_blocks.BannerImage()),
-        ('heading', common_blocks.HeaderH1()),
-        ('subheading', common_blocks.Subhead()),
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', common_blocks.CaptionImageBlock()),
+        ('h1', common_blocks.HeaderH1(classname="full title")),
+        ('subhead', common_blocks.Subhead(classname="full title")),
         ('block_quote', common_blocks.BlockQuote()),
         ('call_to_action', common_blocks.CallToAction()),
-        ('cta_button', common_blocks.CTAButton()),
-        ('captioned_image', common_blocks.CaptionImageBlock())])
+        ('small_call_to_action', common_blocks.CTAButton()),
+    ])
 
     search_fields = Page.search_fields + [
         index.SearchField('body'),
     ]
 
     content_panels = Page.content_panels + [
+        FieldPanel('bulletin_date'),
         StreamFieldPanel('body'),
     ]
 

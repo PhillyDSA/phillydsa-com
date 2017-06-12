@@ -17,6 +17,12 @@ from common import blocks as common_blocks
 from common.snippets import FundraisingSnippet
 
 
+class TopLevelPages(Page):
+    """Container for all top-level pages."""
+
+    subpage_types = ['TopLevelPage']
+
+
 class TopLevelPage(Page):
     """Render a top-level page.
 

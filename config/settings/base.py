@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'common',
     'member_calendar',
     'home',
+    'bulletins',
     'search',
 
     # Wagtail apps
