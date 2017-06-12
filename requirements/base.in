@@ -5,3 +5,4 @@ wagtailmenus
 python-dateutil
 icalendar
 gunicorn
+premailer

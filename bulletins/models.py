@@ -3,8 +3,12 @@
 import calendar
 import datetime
 
+import premailer
+from django.conf import settings
 from django.db import models
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.utils.text import slugify
 
 from dateutil import relativedelta
@@ -133,3 +137,25 @@ class BulletinEmail(Page):
         """Override to have a more specific slug w/ date & title."""
         self.slug = "{0}-{1}".format(self.bulletin_date.strftime("%Y-%m-%d"), slugify(self.title))
         super().save(*args, **kwargs)
+
+    def to_email(self, *args, **kwargs):
+        """Export a bulletin as an HTML file for emailing."""
+        request = kwargs.get('request', None)
+        template_string = render_to_string(self.template, self.get_context(request))
+        prepared_resp = premailer.Premailer(template_string, base_url=settings.BASE_URL).transform()
+        return prepared_resp
+
+    def serve(self, request):
+        """Serve request based on options in GET method to add email."""
+        if "format" in request.GET:
+            if request.GET['format'] == 'email':
+                # Export to plaint text email format
+                response = HttpResponse(self.to_email(request=request), content_type='text/html')
+                return response
+            else:
+                # Unrecognised format error
+                message = 'Could not export event\n\nUnrecognised format: ' + request.GET['format']
+                return HttpResponse(message, content_type='text/plain')
+        else:
+            # Display event page as usual
+            return super().serve(request)
