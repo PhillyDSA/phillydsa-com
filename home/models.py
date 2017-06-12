@@ -6,12 +6,12 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
 from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.wagtailcore import blocks
 
 from common import blocks as common_blocks
 from common.snippets import FundraisingSnippet
@@ -30,9 +30,11 @@ class HomePage(Page):
         ('image', common_blocks.CaptionImageBlock()),
         ('h1', common_blocks.HeaderH1(classname="full title")),
         ('subhead', common_blocks.Subhead(classname="full title")),
-        ('block_quote', common_blocks.BlockQuoteBlock()),
+        ('block_quote', common_blocks.BlockQuote()),
         ('call_to_action', common_blocks.CallToAction()),
+        ('small_call_to_action', common_blocks.CTAButton()),
     ])
+
     fundraising_snippet = models.ForeignKey(
         FundraisingSnippet,
         null=True,

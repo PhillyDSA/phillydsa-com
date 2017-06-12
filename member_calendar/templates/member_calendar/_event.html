@@ -17,7 +17,7 @@
         <span itemprop="addressLocality">{{ event.location_city }}</span>, <span itemprop="addressRegion">{{ event.location_state }}</span> <span itemprop="postalCode">{{ event.location_zip_code }}</span>
       </div>
       <a href="http://maps.google.com/?q={{ event.location_street_address}},{{event.location_city}},{{event.location_state}},{{event.location_zip_code}}" target="_blank" class="pa2 ph3 mv2 bg-black dib white">Google Maps</a>
-      <a href="{{ event.url }}?format=ical" class="pa2 ph3 mv2 bg-black dib white">iCal / Outlook</a><br>
+      <a href="{{ event.url }}?format=ical" class="pa2 ph3 mv2 bg-black dib white">iCal / Outlook</a>
       <a href="http://www.google.com/calendar/event?action=TEMPLATE&text={{ event.title|urlencode }}&dates={{ event.event_start_dt|zulu_time}}/{{ event.event_end_dt|zulu_time }}&sprop=website:{{ event.full_url }}&sprop;=name:PhillyDSA&location={{ event.location_name }},{{ event.location_street_address }},{{ event.location_city }},{{ event.location_state }},{{ event.location_zip_code }}" class="pa2 ph3 mv2 bg-black dib white">Google Calendar</a>
     </div>
   </div>

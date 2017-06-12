@@ -20,9 +20,9 @@ from wagtail.wagtailadmin.edit_handlers import (
     StreamFieldPanel,
     MultiFieldPanel)
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 from member_calendar.utils import make_calendar
+from common import blocks as common_blocks
 
 
 class MemberCalendarHomePage(RoutablePageMixin, Page):
@@ -110,9 +110,15 @@ class MemberCalendarEvent(Page):
     event_start_time = models.TimeField("Start time")
     event_end_time = models.TimeField("End time")
     body = StreamField([
+        ('banner_image', common_blocks.BannerImage()),
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', common_blocks.CaptionImageBlock()),
+        ('h1', common_blocks.HeaderH1(classname="full title")),
+        ('subhead', common_blocks.Subhead(classname="full title")),
+        ('block_quote', common_blocks.BlockQuote()),
+        ('call_to_action', common_blocks.CallToAction()),
+        ('small_call_to_action', common_blocks.CTAButton()),
     ])
 
     location_street_address = models.CharField(max_length=255, blank=True)

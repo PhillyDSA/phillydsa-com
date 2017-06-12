@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+<div class="w-100 v-mid {{ self.alignment }} mt4 mb4">  <!--button-->
+
+  <a href="{% if self.button_link %}{{ self.button_link.url }}{% else %}{{ self.button_external_link}}{% endif %}"
+      class="no-underline tc pa3 bg-red white br2">
+    {{ self.button_copy }}
+  </a>
+
+</div>
