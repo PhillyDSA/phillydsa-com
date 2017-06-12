@@ -101,3 +101,4 @@ media
 node_modules
 *.ipynb
 .vagrant
+*.retry

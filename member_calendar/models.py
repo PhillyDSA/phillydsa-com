@@ -20,9 +20,9 @@ from wagtail.wagtailadmin.edit_handlers import (
     StreamFieldPanel,
     MultiFieldPanel)
 from wagtail.wagtailsearch import index
-from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 from member_calendar.utils import make_calendar
+from common import blocks as common_blocks
 
 
 class MemberCalendarHomePage(RoutablePageMixin, Page):
@@ -110,9 +110,15 @@ class MemberCalendarEvent(Page):
     event_start_time = models.TimeField("Start time")
     event_end_time = models.TimeField("End time")
     body = StreamField([
+        ('banner_image', common_blocks.BannerImage()),
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('image', common_blocks.CaptionImageBlock()),
+        ('h1', common_blocks.HeaderH1(classname="full title")),
+        ('subhead', common_blocks.Subhead(classname="full title")),
+        ('block_quote', common_blocks.BlockQuote()),
+        ('call_to_action', common_blocks.CallToAction()),
+        ('small_call_to_action', common_blocks.CTAButton()),
     ])
 
     location_street_address = models.CharField(max_length=255, blank=True)
@@ -166,19 +172,39 @@ class MemberCalendarEvent(Page):
                                  ev_time.hour, ev_time.minute)
 
     @property
+    def event_start_dt(self):
+        """Return event start time as a datetime.datetime obj."""
+        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_start_time)
+
+    @property
+    def event_end_dt(self):
+        """Return event end time as a datetime.datetime obj."""
+        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_end_time)
+
+    @property
     def iso_start_time(self):
         """Return ISO-formatted start time for event."""
-        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_start_time).isoformat()
+        return self.event_start_dt.isoformat()
 
     @property
     def iso_end_time(self):
         """Return ISO-formatted end time for event."""
-        return self.event_datetime(ev_date=self.event_date, ev_time=self.event_end_time).isoformat()
+        return self.event_end_dt.isoformat()
 
     def save(self, *args, **kwargs):
         """Override to have a more specific slug w/ date & title."""
         self.slug = "{0}-{1}".format(self.event_date.strftime("%Y-%m-%d"), slugify(self.title))
         super().save(*args, **kwargs)
+
+    @property
+    def event_location(self):
+        """Return an event location or "To be determined"."""
+        if not all([self.location_street_address, self.location_city, self.location_state, self.location_zip_code]):
+            return "To be determined"
+        else:
+            return ", ".join([self.location_street_address,
+                              self.location_city,
+                              self.location_state]) + self.location_zip_code
 
     def to_ical(self):
         """Return an iCal compatible file representing the event."""

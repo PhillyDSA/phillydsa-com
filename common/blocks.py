@@ -6,7 +6,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
-class BlockQuoteBlock(blocks.StructBlock):
+class BlockQuote(blocks.StructBlock):
     """Create a block quote StructBlock element."""
 
     quote = blocks.TextBlock(required=True, max_length=255, classname="full")
@@ -75,3 +75,42 @@ class CallToAction(blocks.StructBlock):
 
         icon = 'title'
         template = 'common/_cta.html'
+
+
+class BannerImage(blocks.StructBlock):
+    """Create a full-width banner image.
+
+    Optionally, you can specify a link and clicking on the image will
+    go to that page or URL.
+
+    """
+
+    photo = ImageChooserBlock(required=True)
+    internal_link = blocks.PageChooserBlock(required=False)
+    external_link = blocks.URLBlock(required=False)
+    alt_text = blocks.CharBlock(max_length=255, required=False)
+
+    class Meta:
+        """Class specific attributes."""
+
+        icon = 'image'
+        template = 'common/_banner_image_link.html'
+
+
+class CTAButton(blocks.StructBlock):
+    """Small button for a call to action."""
+
+    button_copy = blocks.CharBlock(max_length=32)
+    button_link = blocks.PageChooserBlock(required=False)
+    button_external_link = blocks.URLBlock(required=False)
+    alignment = blocks.ChoiceBlock(choices=(
+        ('tl', 'Left'),
+        ('tr', 'Right'),
+        ('tc', 'Center'))
+    )
+
+    class Meta:
+        """Specific attributes."""
+
+        icon = 'title'
+        template = 'common/_cta_button.html'

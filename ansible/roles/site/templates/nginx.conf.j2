@@ -24,6 +24,11 @@ server {
         }
     }
 
+    location /media/ {
+        alias {{ http_root }}/{{ domain }}/media/;
+        expires 30d;
+    }
+
     client_body_timeout 12;
     client_header_timeout 12;
     keepalive_timeout 15;
