@@ -5,15 +5,28 @@
 {% block body_class %}template-top_level_page{% endblock %}
 
 {% block content %}
-    <div class="measure-wide center">
-        <article class="lh-copy fw4 ">
-            {% include_block page.body %}
-        </article>
-    </div>
+<div class="measure-wide center">
+  <article class="lh-copy fw4 ">
+    {% include_block page.body %}
+  </article>
+</div>
 
-    <div class="measure-wide center">
-    {% if page.fundraising_snippet %}
-        {{ page.fundraising_snippet.embed_code|safe }}
-    {% endif %}
-    </div>
+<div class="measure-wide center">
+{% if page.fundraising_snippet %}
+  {{ page.fundraising_snippet.embed_code|safe }}
+{% endif %}
+</div>
+
+{% if user.is_authenticated %}
+<style>
+  body {
+    padding-bottom: 5rem;
+  }
+</style>
+<div class="bg-red fixed w-100 bottom-0 left-0 tc dt v-mid h3">
+  <div class="dtc v-mid w3">
+    <a href="?format=email" class="dib pa2 f6 white code">Export to HTML</a>
+  </div>
+</div>
+{% endif %}
 {% endblock %}
