@@ -12,11 +12,13 @@ from django.test import Client
 from member_calendar.models import MemberCalendarEvent
 from member_calendar.utils import make_calendar
 
+FIXTURE_FILE = 'member_calendar/test_fixtures/data.json'
+
 
 @pytest.mark.django_db
 def test_member_calendar_event_ical_creation():
     """Test that events properly export to ical format."""
-    call_command('loaddata', 'member_calendar/test_fixtures/data.json')
+    call_command('loaddata', FIXTURE_FILE)
 
     event = MemberCalendarEvent.objects.all().first()
     ics = str(event.to_ical())
@@ -39,7 +41,7 @@ def test_member_calendar_event_ical_creation():
 @pytest.mark.django_db
 def test_member_calendar_model():
     """Test creation of MemberCalendarEvents."""
-    call_command('loaddata', 'member_calendar/test_fixtures/data.json')
+    call_command('loaddata', FIXTURE_FILE)
 
     event = MemberCalendarEvent.objects.all().first()
     assert event.title == 'ABCs of Socialism Reading Group - May Session'
@@ -55,7 +57,7 @@ def test_member_calendar_model():
 @pytest.mark.django_db
 def test_member_calendar_home_page():
     """Test routing and MemberCalendarHomePage rendering."""
-    call_command('loaddata', 'member_calendar/test_fixtures/data.json')
+    call_command('loaddata', FIXTURE_FILE)
     c = Client()
     req = c.get('/member-calendar/')
 
@@ -71,6 +73,26 @@ def test_member_calendar_home_page():
     req = c.get('/member-calendar/2017/5/21/')
     assert len(req.context['events']) == 1
     assert req.context['events'][0].title == 'ABCs of Socialism Reading Group - May Session'
+
+
+@pytest.mark.django_db
+def test_correct_template_rendering_month_page():
+    """Test to ensure that templates render correctly for the month."""
+    call_command('loaddata', FIXTURE_FILE)
+    c = Client()
+    req = c.get('/member-calendar/2017/5/')
+
+    assert "/member-calendar/2017/5/21" in req.content.decode('utf8')
+
+
+@pytest.mark.django_db
+def test_correct_template_rendering_day_page():
+    """Test to ensure that template renders correctly for the day."""
+    call_command('loaddata', FIXTURE_FILE)
+    c = Client()
+    req = c.get('/member-calendar/2017/5/21/')
+
+    assert "ABCs of Socialism Reading Group - May Session" in req.content.decode('utf8')
 
 
 def test_make_calendar():
