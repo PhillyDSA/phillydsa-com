@@ -28,7 +28,7 @@
                 {% if day != 0 %}
                     {% if events_dict|get_item:day %}
                         <div class="w3 pa1 h3 v-mid dtc tc gray">
-                            <a href="/member-calendar/{{year}}/{{ month }}/{{day}}" class="dib pa3 bg-red white br-100">{{ day|stringformat:"02d" }}</a>
+                            <a href="{% routablepageurl page "events" year=year month=month day=day %}" class="dib pa3 bg-red white br-100">{{ day|stringformat:"02d" }}</a>
                         </div>
                     {% else %}
                         <div class="w3 pa2 h3 v-mid dtc br-100 tc gray">{{ day|stringformat:"02d" }}</div>
