@@ -1,3 +1,7 @@
+add_header X-Frame-Options SAMEORIGIN;
+add_header X-XSS-Protection "1; mode=block";
+server_tokens off;
+
 server {
     listen      80;
     server_name {{ domain }};
@@ -28,6 +32,7 @@ server {
         alias {{ http_root }}/{{ domain }}/media/;
         expires 30d;
     }
+
 
     client_body_timeout 12;
     client_header_timeout 12;
