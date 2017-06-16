@@ -23,11 +23,9 @@
 
 - name: Clone Git Repository
   git:
-    repo: git@github.com:{{github_user}}/{{github_repo}}.git
+    repo: https://github.com/{{github_user}}/{{github_repo}}.git
     dest: "{{ http_root }}/{{ domain }}"
-    accept_hostkey: yes
     force: yes
-    key_file: "/root/.ssh/id_deploy"
 
 - name: Copy conf.ini
   copy:
