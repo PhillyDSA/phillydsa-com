@@ -2,6 +2,8 @@ add_header X-Frame-Options SAMEORIGIN;
 add_header X-XSS-Protection "1; mode=block";
 server_tokens off;
 
+limit_req_zone $binary_remote_addr zone=login:10m rate=1r/s;
+
 server {
     listen 443 ssl default deferred;
     server_name {{ domain }};
@@ -29,6 +31,13 @@ server {
     add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
 
     location / {
+        proxy_pass http://127.0.0.1:{{ django_port }};
+        proxy_set_header X-Forwarded-Host $server_name;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /dsa-member-admin/ {
+        limit_req zone=login burst=5;
         proxy_pass http://127.0.0.1:{{ django_port }};
         proxy_set_header X-Forwarded-Host $server_name;
         proxy_set_header X-Real-IP $remote_addr;
