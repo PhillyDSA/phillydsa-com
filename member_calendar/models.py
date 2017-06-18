@@ -160,7 +160,7 @@ class MemberCalendarEvent(Page):
                 return response
             else:
                 # Unrecognised format error
-                message = 'Could not export event\n\nUnrecognised format: ' + request.GET['format']
+                message = 'Could not export event\n\nUnrecognised format.'
                 return HttpResponse(message, content_type='text/plain')
         else:
             # Display event page as usual

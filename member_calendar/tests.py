@@ -35,7 +35,7 @@ def test_member_calendar_event_ical_creation():
     assert req._headers['content-type'] == ('Content-Type', 'text/html; charset=utf-8')
 
     req = c.get(event.url + '?format=test')
-    assert req.content.decode('utf8') == 'Could not export event\n\nUnrecognised format: test'
+    assert req.content.decode('utf8') == 'Could not export event\n\nUnrecognised format.'
 
 
 @pytest.mark.django_db
