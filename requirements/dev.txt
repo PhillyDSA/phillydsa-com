@@ -15,7 +15,7 @@ coverage==4.4.1
 cssselect==1.0.1
 cssutils==1.0.2
 django-debug-toolbar==1.8
-django-localflavor==1.5
+django-localflavor==1.5.1
 django-modelcluster==3.1
 django-taggit==0.22.1
 django-template-debug==0.3.5

@@ -9,7 +9,7 @@ certifi==2017.4.17        # via requests
 chardet==3.0.4            # via requests
 cssselect==1.0.1          # via premailer
 cssutils==1.0.2           # via premailer
-django-localflavor==1.5
+django-localflavor==1.5.1
 django-modelcluster==3.1  # via wagtail
 django-taggit==0.22.1     # via wagtail
 django-treebeard==4.1.1   # via wagtail
