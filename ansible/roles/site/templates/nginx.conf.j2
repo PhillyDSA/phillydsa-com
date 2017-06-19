@@ -5,7 +5,32 @@ server_tokens off;
 limit_req_zone $binary_remote_addr zone=login:10m rate=1r/s;
 
 server {
-    listen 443 ssl default deferred;
+    listen [::]:80;
+    listen 80;
+
+    # listen on both hosts
+    server_name {{ domain }} www.{{ domain }};
+
+    # and redirect to the https host (declared below)
+    # avoiding http://www -> https://www -> https:// chain.
+    return 301 https://{{ domain }}$request_uri;
+}
+
+server {
+    listen [::]:443 ssl http2;
+    listen 443 ssl http2;
+
+    # listen on the wrong host
+    server_name www.{{ domain }};
+
+    # and redirect to the non-www host (declared below)
+    return 301 https://{{ domain }}$request_uri;
+}
+
+server {
+    listen [::]:443 ssl http2;
+    listen 443 ssl http2;
+
     server_name {{ domain }};
 
     access_log /var/log/nginx/{{ domain }}-access.log;
@@ -45,7 +70,7 @@ server {
 
     location /static/ {
         alias {{ http_root }}/{{ domain }}/static/;
-        expires 0d;
+        expires 7d;
 
         if ($request_filename ~* ^.*?/([^/]*?)$){
             set $filename $1;
@@ -71,18 +96,4 @@ server {
     gzip_min_length         1000;
     gzip_proxied            expired no-cache no-store private auth;
     gzip_types              text/plain application/x-javascript text/xml text/css application/xml image/x-icon application/x-font-ttf font/ttf font/opentype application/vnd.ms-fontobject image/svg+xml;
-
-
-}
-
-server {
-    listen 80;
-    server_name {{ domain }};
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 80;
-    server_name {{ domain }}
-    return 301 https://{{ domain }}$request_uri;
 }
