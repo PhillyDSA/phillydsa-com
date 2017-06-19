@@ -19,10 +19,6 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-SECRET_KEY = 'test'
-
-ALLOWED_HOSTS = ['192.168.1.7', '0.0.0.0', 'localhost', '127.0.0.1', 'a4a78554.ngrok.io']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -95,6 +91,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wagtailmenus.context_processors.wagtailmenus',
+                'common.context_processors.global_settings',
             ],
         },
     },
@@ -154,3 +151,7 @@ WAGTAIL_SITE_NAME = "PhillyDSA"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://www.phillydsa.com'
+
+
+# Google stuff
+GOOGLE_SITE_VERIFICATION = "w3PEys-WERIs_IaggCLoo9sYZ8WQTMSfawrDYbfMlTc"
