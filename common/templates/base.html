@@ -1,6 +1,10 @@
 {% load static %}
 {% load menu_tags %}
 
+{% if debug %}
+    {% load debug_tags %}
+{% endif %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -65,9 +69,9 @@
                 <meta property="og:title" content="{{ self.seo_title }}{% if site_name %} - {{ site_name }}{% endif %}">
                 <meta property="twitter:title" content="{{ self.seo_title }}{% if site_name %} - {{ site_name }}{% endif %}">
             {% else %}
-                <title>{{ self.title }}{% if site_name %} - {{ site_name }}{% endif %}</title>
-                <meta property="og:title" content="{{ self.title }}{% if site_name %} - {{ site_name }}{% endif %}">
-                <meta property="twitter:title" content="{{ self.title }}{% if site_name %} - {{ site_name }}{% endif %}">
+                <title>{{ page.title }}{% if site_name %} - {{ site_name }}{% endif %}</title>
+                <meta property="og:title" content="{{ page.title }}{% if site_name %} - {{ site_name }}{% endif %}">
+                <meta property="twitter:title" content="{{ page.title }}{% if site_name %} - {{ site_name }}{% endif %}">
             {% endif %}
         {% endblock %}
         {% endwith %}
@@ -144,6 +148,7 @@
             {# Override this in templates to add extra javascript #}
         {% endblock %}
 
+        {% if not debug %}
         {# Google Analytics - delete if you don't want to use #}
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -155,5 +160,6 @@
           ga('send', 'pageview');
 
         </script>
+        {% endif %}
     </body>
 </html>
