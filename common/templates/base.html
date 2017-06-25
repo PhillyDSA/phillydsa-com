@@ -80,7 +80,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-           <link rel="stylesheet" type="text/css" href="{% static 'css/tachyons/css/tachyons.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/tachyons/css/tachyons.min.css' %}">
         <style>
         {# {% include "common/css.html" %} #}
         </style>
@@ -141,7 +141,7 @@
                     "https://www.facebook.com/phillyDSA",
                     "https://www.twitter.com/phillyDSA"
                 ]
-            }
+            },
         </script>
 
         {% block extra_js %}
@@ -150,6 +150,8 @@
 
         {% if not debug %}
         {# Google Analytics - delete if you don't want to use #}
+
+        {% if not debug %}
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -158,8 +160,29 @@
 
           ga('create', '{{ GOOGLE_ANALYTICS_KEY }}', 'auto');
           ga('send', 'pageview');
-
         </script>
         {% endif %}
+
+        <script>
+            window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+            ga('create', '{{ GOOGLE_ANALYTICS_KEY_TESTING }}', 'auto');
+            ga('set', 'transport', 'beacon');
+
+            ga('require', 'eventTracker');
+            ga('require', 'outboundLinkTracker');
+            ga('require', 'urlChangeTracker');
+            ga('require', 'pageVisibilityTracker', {
+                fieldsObj: {
+                    nonInteraction: null
+                },
+                sendInitialPageview: true,
+                hiddenMetricIndex: 1,
+                visibleMetricIndex: 2
+                });
+        </script>
+
+        <script async src="https://www.google-analytics.com/analytics.js"></script>
+        <script async src="{% static 'js/dsa-ga.js' %}"></script>
+
     </body>
 </html>

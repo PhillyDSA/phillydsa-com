@@ -1,25 +1,60 @@
 {% load wagtailcore_tags %}
 {% load common_tags %}
 
-<article itemscope=itemscope itemtype="http://schema.org/Event" class="center measure-wide">
-  <h1><a href="{% pageurl event %}"><span itemprop="name">{{ event.title }}</span></a></h1>
+<article class="center measure-wide">
+  <h1><a href="{% pageurl event %}">{{ event.title }}</a></h1>
   <div class="meta bt bw2 pv4">
     <div class="time">
-      <span itemprop="startDate" content="{{ event.iso_start_time }}">{{ event.event_date }}</span> at {{ event.event_start_time }} to <span itemprop="endDate" content="{{ event.iso_end_time }}">{{ event.event_end_time }}</span>
+      {{ event.event_date }} at {{ event.event_start_time }} to {{ event.event_end_time }}
     </div>
 
-    <div class="mt2" itemprop="location" itemscope itemtype="http://schema.org/Place">
+    <div class="mt2">
       {% if event.location_name %}
-      <span itemprop="name">{{ event.location_name }}</span>
+      {{ event.location_name }}
       {% endif %}
-      <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" class="mb2">
-        <span itemprop="streetAddress">{{ event.location_street_address }}</span><br>
-        <span itemprop="addressLocality">{{ event.location_city }}</span>, <span itemprop="addressRegion">{{ event.location_state }}</span> <span itemprop="postalCode">{{ event.location_zip_code }}</span>
+      <div class="mb2">
+        {{ event.location_street_address }}<br>
+        {{ event.location_city }}, {{ event.location_state }} {{ event.location_zip_code }}
       </div>
       <a href="http://maps.google.com/?q={{ event.location_street_address}},{{event.location_city}},{{event.location_state}},{{event.location_zip_code}}" target="_blank" class="pa2 ph3 mv2 bg-black dib white">Google Maps</a>
       <a href="{{ event.url }}?format=ical" class="pa2 ph3 mv2 bg-black dib white">iCal / Outlook</a>
       <a href="http://www.google.com/calendar/event?action=TEMPLATE&text={{ event.title|urlencode }}&dates={{ event.event_start_dt|zulu_time}}/{{ event.event_end_dt|zulu_time }}&sprop=website:{{ event.full_url }}&sprop;=name:PhillyDSA&location={{ event.location_name }},{{ event.location_street_address }},{{ event.location_city }},{{ event.location_state }},{{ event.location_zip_code }}" class="pa2 ph3 mv2 bg-black dib white">Google Calendar</a>
     </div>
   </div>
-  <div itemprop="description">{{ event.body }}</div>
+  {{ event.body }}
 </article>
+
+  <script type="application/ld+json">
+    {
+    "@context" : "http://schema.org",
+    "@type" : "Event",
+    "name": "{{ event.title }}",
+    "startDate": "{{ event.iso_start_time }}",
+    "endDate": "{{ event.iso_end_time }}",
+    "location": {
+        "@type": "Place",
+        {% if event.location_name %}
+        "name": "{{ event.location_name }}",
+        {% endif %}
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{ event.location_street_address }}",
+            "addressLocality": "{{ event.location_city }}",
+            "addressRegion": "{{ event.location_state }}",
+            "postalCode": "{{ event.location_zip_code }}"
+        }
+    },
+    "description": "{{ event.body| striptags | truncatewords_html:50 | strip_double_quotes }}",
+    "image": "https://www.phillydsa.com/static/imgs/DSAlogo.png",
+    "performer": {
+        "@type": "Organization",
+        "name" : "Philly DSA",
+        "url" : "https://www.phillydsa.com/",
+        "logo": "https://www.phillydsa.com/static/imgs/DSAlogo.png",
+        "sameAs" : [
+            "https://www.facebook.com/phillyDSA",
+            "https://www.twitter.com/phillyDSA"
+        ]
+    }
+  }
+  </script>

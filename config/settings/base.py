@@ -19,6 +19,11 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+# Base URL to use when referring to full URLs within the Wagtail admin backend -
+# e.g. in notification emails. Don't include '/admin' or a trailing slash
+BASE_URL = 'https://phillydsa.com'
+WAGTAIL_SITE_NAME = "PhillyDSA"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -143,16 +148,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
-# Wagtail settings
-
-WAGTAIL_SITE_NAME = "PhillyDSA"
-
-# Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://www.phillydsa.com'
-
-
 # Google stuff
 GOOGLE_SITE_VERIFICATION = 'w3PEys-WERIs_IaggCLoo9sYZ8WQTMSfawrDYbfMlTc'
 GOOGLE_ANALYTICS_KEY = 'UA-101255774-1'
+GOOGLE_ANALYTICS_KEY_TESTING = 'UA-101255774-2'

@@ -27,5 +27,8 @@
     "gulp-uglify": "https://registry.npmjs.org/gulp-uglify/-/gulp-uglify-2.1.2.tgz",
     "gulp-watch": "https://registry.npmjs.org/gulp-watch/-/gulp-watch-4.3.11.tgz",
     "jshint": "https://registry.npmjs.org/jshint/-/jshint-2.9.4.tgz"
+  },
+  "dependencies": {
+    "xml2js": "^0.4.17"
   }
 }

@@ -22,3 +22,13 @@ try:
 except KeyError:
     raise ImproperlyConfigured(
         "Keys not found. Ensure you have ['django_keys']['secret_key'] properly set.")
+
+
+INSTALLED_APPS += ['anymail']  # noqa
+ANYMAIL = {
+    "MAILGUN_API_KEY": config['mailgun']['api_key'],
+    "MAILGUN_SENDER_DOMAIN": 'mg.phillydsa.com',
+}
+
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = "do-not-reply@{0}.com".format(HOST_NAME)  # noqa

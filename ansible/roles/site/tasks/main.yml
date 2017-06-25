@@ -37,7 +37,7 @@
 
 - name: Copy conf.ini
   copy:
-    content: "{{ django_secret_key }}"
+    content: "{{ conf_ini }}"
     dest: "{{ http_root }}/{{ domain }}/conf.ini"
     owner: "{{ http_user }}"
     group: "{{ http_user }}"

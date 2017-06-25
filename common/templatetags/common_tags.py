@@ -19,3 +19,9 @@ def zulu_time(date_obj):
     """Return a datetime.datetime obj and return google calendar/zulu formatted time string."""
     dt = date_obj.astimezone(TZ).astimezone(pytz.utc)
     return dt.strftime("%Y%m%dT%H%M00Z")
+
+
+@register.filter
+def strip_double_quotes(text):
+    """Return string with double quote marks replaced by single quote marks."""
+    return text.replace('"', "'")
