@@ -33,60 +33,34 @@ class BulletinHomePage(RoutablePageMixin, Page):
     subpage_types = ['BulletinEmail']
 
     @route(r'^$')
-    @route(r'^(?P<year>[0-9]{4})/$')
     @route(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$')
-    @route(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/(?P<day>[0-9]{1,2})/$')
     def bulletins(self, request, *args, **kwargs):
         """Return current month bulletins or archives by kwarg."""
-        if kwargs.get('day'):
-            template_name = 'member_calendar/bulletins_by_day.html'
-        elif kwargs.get('month'):
-            template_name = 'member_calendar/bulletins_by_month.html'
-        elif kwargs.get('year'):
-            template_name = 'member_calendar/bulletins_by_year.html'
-        else:
-            template_name = 'member_calendar/bulletins_by_month.html'
-
-        return render(
-            request,
-            template_name,
-            self.get_context(request, *args, **kwargs)
-        )
+        template_name = 'bulletins/bulletins_by_month.html'
+        return render(request, template_name, self.get_context(request, *args, **kwargs))
 
     def get_context(self, request, *args, **kwargs):
         """Return context and order by event date rather than pub date."""
         context = super(BulletinHomePage, self).get_context(request)
         bulletins_qs = self.get_children().live()
-        day, month, year = (kwargs.get('day', None),
-                            kwargs.get('month', None),
-                            kwargs.get('year', None))
-        if day:
+        month, year = (kwargs.get('month', None),
+                       kwargs.get('year', None))
+        if month:
             bulletins = bulletins_qs.filter(bulletinemail__bulletin_date__year=year)\
-                              .filter(bulletinemail__bulletin_date__month=month)\
-                              .filter(bulletinemail__bulletin_date__day=day)\
-                              .order_by('membercalendarevent__event_date')
-        elif month:
-            bulletins = bulletins_qs.filter(bulletinemail__bulletin_date__year=year)\
-                              .filter(bulletinemail__bulletin_date__month=month)\
-                              .order_by('membercalendarevent__event_date')
-        elif year:
-            bulletins = bulletins_qs.filter(bulletinemail__bulletin_date__year=year)\
-                              .order_by('membercalendarevent__event_date')
+                                    .filter(bulletinemail__bulletin_date__month=month)\
+                                    .order_by('bulletinemail__bulletin_date')
         else:
             bulletins = bulletins_qs.filter(bulletinemail__bulletin_date__month=datetime.datetime.now().month)\
-                              .order_by('membercalendarevent__event_date')
+                                    .order_by('bulletinemail__bulletin_date')
 
         year, month, cal = make_calendar(year=year or datetime.datetime.now().year,
                                          month=month or datetime.datetime.now().month)
 
-        bulletin_dict = {}
-        [bulletin_dict.update({bulletin.specific.bulletin_date.day: bulletin}) for bulletin in bulletins]
         next_month = datetime.date(year, month, 1) + relativedelta.relativedelta(months=1)
         previous_month = datetime.date(year, month, 1) + relativedelta.relativedelta(months=-1)
         context = {
             'calendar': cal,
             'bulletins': bulletins,
-            'bulletin_dict': bulletin_dict,
             'extra_data': kwargs,
             'month': month,
             'month_name': calendar.month_name[month],
