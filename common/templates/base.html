@@ -78,9 +78,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {% if request.COOKIES.css_cached %}
-            <link rel="stylesheet" type="text/css" href="{% static 'css/tachyons/css/tachyons.min.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'specific/phillydsa-style.min.css' %}">
         {% else %}
-            <link rel="prefetch" href="{% static 'css/tachyons/css/tachyons.min.css' %}">
+            <link rel="prefetch" href="{% static 'specific/phillydsa-style.min.css' %}">
             <style>
             {% include "common/css.html" %}
             </style>

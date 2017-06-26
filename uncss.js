@@ -33,11 +33,11 @@ function createCSS(urls) {
             console.log("common/templates/common/css.html saved!");
         });
 
-        fs.writeFile("common/templates/common/phillydsa-style.min.css", output, function (err) {
+        fs.writeFile("common/static/specific/phillydsa-style.min.css", output, function (err) {
             if (err) {
                 return console.log(err);
             }
-            console.log("common/templates/common/phillydsa-style.min.css saved!");
+            console.log("common/static/specific/phillydsa-style.min.css saved!");
         });
     });
 }
