@@ -11,6 +11,8 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--><html class="no-js fw4"> <!--<![endif]-->
     <head>
+        <script>new FontFace("Manifold", "url({% static 'fonts/ManifoldDSA-Medium.woff2' %})").load()
+        </script>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
@@ -79,23 +81,22 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/tachyons/css/tachyons.min.css' %}">
-        <style>
-        {# {% include "common/css.html" %} #}
-        </style>
-
-        {% block extra_css %}
-            {# Override this in templates to add extra stylesheets #}
-        {% endblock %}
+        {% if request.COOKIES.css_cached %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/tachyons/css/tachyons.min.css' %}">
+        {% else %}
+            <link rel="prefetch" href="{% static 'css/tachyons/css/tachyons.min.css' %}">
+            <style>
+            {% include "common/css.html" %}
+            </style>
+        {% endif %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %} manifold">
-        {% block headerline%}
-        <header class="manifold center mb4 ph3 ph4-ns pt4 pt5-ns">
+    <body class="{% block body_class %}{% endblock %} sans-serif">
+        {% block headerline %}
+        <header class="center mb4 ph3 ph4-ns pt4 pt5-ns">
             <a href="/" class="link black"><div class="ph2-ns tc">
-                <img class="dib h2 h3-ns" src="{% static 'imgs/DSAlogo.png' %}">
-                <h1 class="dib f-subheadline-ns f2 fw3 mb0 mt1 manifold tracked-tight">Philly DSA</h1>
+                <img class="dib h2 h3-ns" src="{% static 'imgs/dsa_logo2.svg' %}">
+                <h1 class="dib f-subheadline-ns f2 fw3 mb0 mt1 tracked-tight">Philly DSA</h1>
             </div></a>
         </header>
 
