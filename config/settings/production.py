@@ -40,7 +40,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': '/var/log/phillydsa-django.log',
+            'filename': 'phillydsa-django.log',
             'maxBytes': 1024 * 1024,
             'backupCount': 5,
         },
