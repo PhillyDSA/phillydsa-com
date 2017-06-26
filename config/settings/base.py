@@ -78,6 +78,8 @@ MIDDLEWARE = [
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+
+    'common.middleware.CSSCacheCookieMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
