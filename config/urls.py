@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
 from django.conf.urls import include, url
+from django.views.generic import TemplateView
 
 from search import views as search_views
 from wagtail.contrib.wagtailsitemaps.views import sitemap
@@ -16,13 +17,13 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^search/$', search_views.search, name='search'),
     url(r'^sitemap\.xml$', sitemap),
+    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
     url(r'', include(wagtail_urls)),
 ]
-
 
 if settings.DEBUG:
     from django.conf.urls.static import static
