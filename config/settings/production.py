@@ -33,23 +33,6 @@ ANYMAIL = {
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 DEFAULT_FROM_EMAIL = "do-not-reply@{0}.com".format(HOST_NAME)  # noqa
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'phillydsa-django.log',
-            'maxBytes': 1024 * 1024,
-            'backupCount': 5,
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
-}
+GOOGLE_SITE_VERIFICATION = 'w3PEys-WERIs_IaggCLoo9sYZ8WQTMSfawrDYbfMlTc'
+GOOGLE_ANALYTICS_KEY = 'UA-101255774-1'
+GOOGLE_ANALYTICS_KEY_TESTING = 'UA-101255774-2'
