@@ -151,7 +151,29 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Google stuff
-GOOGLE_SITE_VERIFICATION = 'w3PEys-WERIs_IaggCLoo9sYZ8WQTMSfawrDYbfMlTc'
-GOOGLE_ANALYTICS_KEY = 'UA-101255774-1'
-GOOGLE_ANALYTICS_KEY_TESTING = 'UA-101255774-2'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s"
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'phillydsa-django.log',
+            'maxBytes': 1024 * 1024,
+            'backupCount': 5,
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
