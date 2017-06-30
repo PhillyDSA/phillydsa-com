@@ -7,8 +7,9 @@
 {% block body_class %}template-top_level_page{% endblock %}
 
 {% block content %}
-<h1>{{ page.title }}</h1>
 <div class="measure-wide center">
+  <h1>{{ page.title }}</h1>
+  <h4 class="gray mb5">{{ page.bulletin_date }}</h5>
   <article class="lh-copy fw4 ">
     {% include_block page.body %}
   </article>
@@ -32,8 +33,6 @@
   </div>
 </div>
 {% endif %}
-
-"description": "{{ page.body| striptags | truncatewords_html:50 | strip_double_quotes }}"
 
 <script type="application/ld+json">
 {
@@ -74,5 +73,6 @@
     },
     "description": "{{ page.body| striptags | truncatewords_html:50 | strip_double_quotes }}"
 }
+</script>
 
 {% endblock %}
