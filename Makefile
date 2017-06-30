@@ -46,3 +46,6 @@ ans_deploy:
 
 deploy:
 	ansible-playbook --private-key=~/.ssh/id_rsa -u jeremy -i ansible/hosts ansible/phillydsa-com.yml -vv --vault-password-file ~/.vault_pass.txt -K
+
+dump:
+	python manage.py dumpdata --natural-foreign --natural-primary > data-`date +'%Y-%m-%d-%H-%M-%S'`.json
