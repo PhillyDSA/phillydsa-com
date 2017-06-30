@@ -48,10 +48,10 @@ class BulletinHomePage(RoutablePageMixin, Page):
         if month:
             bulletins = bulletins_qs.filter(bulletinemail__bulletin_date__year=year)\
                                     .filter(bulletinemail__bulletin_date__month=month)\
-                                    .order_by('bulletinemail__bulletin_date')
+                                    .order_by('-bulletinemail__bulletin_date')
         else:
             bulletins = bulletins_qs.filter(bulletinemail__bulletin_date__month=datetime.datetime.now().month)\
-                                    .order_by('bulletinemail__bulletin_date')
+                                    .order_by('-bulletinemail__bulletin_date')
 
         year, month, cal = make_calendar(year=year or datetime.datetime.now().year,
                                          month=month or datetime.datetime.now().month)
