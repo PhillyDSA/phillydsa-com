@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 
+{% load static %}
+{% load common_tags %}
 {% load wagtailcore_tags %}
 
 {% block body_class %}template-top_level_page{% endblock %}
 
 {% block content %}
+<h1>{{ page.title }}</h1>
 <div class="measure-wide center">
   <article class="lh-copy fw4 ">
     {% include_block page.body %}
@@ -29,4 +32,47 @@
   </div>
 </div>
 {% endif %}
+
+"description": "{{ page.body| striptags | truncatewords_html:50 | strip_double_quotes }}"
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name" : "Philly DSA",
+        "url" : "https://www.phillydsa.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'imgs/logo_wide.png' %}",
+            "width": 260,
+            "height": 60
+        },
+        "url" : "https://www.phillydsa.com/",
+        "sameAs" : [
+            "https://www.facebook.com/phillyDSA",
+            "https://www.twitter.com/phillyDSA"
+        ]
+    },
+    "author": {
+        "@type": "Organization",
+        "name" : "Philly DSA"
+    },
+    "datePublished": "{{ page.bulletin_date }}",
+    "dateModified": "{{ page.bulletin_date }}",
+    "headline": "{{ page.title }}",
+    "image": {
+        "@type": "ImageObject",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'imgs/dsa_logo_800x800.png' %}",
+        "height": 800,
+        "width": 800
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ page.url }}"
+    },
+    "description": "{{ page.body| striptags | truncatewords_html:50 | strip_double_quotes }}"
+}
+
 {% endblock %}
