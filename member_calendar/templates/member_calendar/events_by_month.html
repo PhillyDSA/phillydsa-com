@@ -40,13 +40,6 @@
             </div>
         {% endfor %}
         </div>
-        {% for event in events_dict %}
-            <article class="dark-gray mv4 measure-wide w-80 pa3-ns">
-                <div class="red fw1 f2"><a href="{{ event.specific.slug }}" class="fw3">{{ event.specific.event_date }}</a></div>
-                <h1 class="fw4 f5 f4-ns">{{ event.specific.title }}</h1>
-                <p class="f6 lh-copy measure mt2">{{ event.specific.body }}</p>
-            </article>
-        {% endfor %}
     </div>
     <div class="measure-wide center">
         <h1 class="mt5 mb4 fw3 f-title meaure center">{{ page.title|safe }}</h1>
