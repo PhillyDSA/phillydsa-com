@@ -16,30 +16,31 @@ cssselect==1.0.1
 cssutils==1.0.2
 django-anymail[mailgun]==0.10
 django-debug-toolbar==1.8
-django-localflavor==1.5.1
+django-localflavor==1.5.2
 django-modelcluster==3.1
 django-taggit==0.22.1
 django-template-debug==0.3.5
 django-treebeard==4.1.2
-django==1.11.2
+django==1.11.3
 djangorestframework==3.6.3
 first==2.0.1              # via pip-tools
 gunicorn==19.7.1
 html5lib==0.999999999
-icalendar==3.11.4
+icalendar==3.11.5
+identify==1.0.3           # via pre-commit
 idna==2.5
 lxml==3.8.0
 nodeenv==1.1.4            # via pre-commit
 olefile==0.44
-pillow==4.1.1
+pillow==4.2.1
 pip-tools==1.9.0
-pre-commit==0.14.3
+pre-commit==0.15.0
 premailer==3.0.1
 py==1.4.34                # via pytest
 pycodestyle==2.3.1
 pytest-cov==2.5.1
 pytest-django==3.1.2
-pytest==3.1.2
+pytest==3.1.3
 python-dateutil==2.6.0
 pytz==2017.2
 pyyaml==3.12              # via aspy.yaml, pre-commit
@@ -49,7 +50,7 @@ sqlparse==0.2.3           # via django-debug-toolbar
 unidecode==0.4.21
 urllib3==1.21.1
 virtualenv==15.1.0        # via pre-commit
-wagtail==1.11
-wagtailmenus==2.3
+wagtail==1.11.1
+wagtailmenus==2.3.1
 webencodings==0.5.1
 willow==0.4
