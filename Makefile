@@ -14,7 +14,8 @@ lint:
 	pre-commit run -a
 
 test:
-	pytest --cov
+	coverage run --source='.' manage.py test
+	coverage report
 	coverage html
 
 env:

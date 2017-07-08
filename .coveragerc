@@ -9,6 +9,7 @@ omit=
     src/*
     /**/migrations*
     */tests.py
+    config/*
 branch = true
 
 [html]

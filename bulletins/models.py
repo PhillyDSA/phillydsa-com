@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import calendar
 import datetime
+import logging
 
 import premailer
 from django.conf import settings
@@ -116,7 +117,9 @@ class BulletinEmail(Page):
         """Export a bulletin as an HTML file for emailing."""
         request = kwargs.get('request', None)
         template_string = render_to_string("bulletins/bulletin_html_email.html", self.get_context(request))
-        prepared_resp = premailer.Premailer(template_string, base_url=settings.BASE_URL).transform()
+        prepared_resp = premailer.Premailer(template_string,
+                                            base_url=settings.BASE_URL,
+                                            cssutils_logging_level=logging.CRITICAL).transform()
         return prepared_resp
 
     def serve(self, request):
@@ -128,7 +131,7 @@ class BulletinEmail(Page):
                 return response
             else:
                 # Unrecognised format error
-                message = 'Could not export event\n\nUnrecognised format: ' + request.GET['format']
+                message = 'Could not export bulletin\n\nUnrecognised format.'
                 return HttpResponse(message, content_type='text/plain')
         else:
             # Display event page as usual

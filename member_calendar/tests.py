@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2017 Jeremy Low
-
-"""Tests for member calendar app."""
-import pytest
-
-from django.core.management import call_command
+from django.test import TestCase
 from django.test import Client
 
 from member_calendar.models import MemberCalendarEvent
@@ -15,90 +10,78 @@ from member_calendar.utils import make_calendar
 FIXTURE_FILE = 'member_calendar/test_fixtures/data.json'
 
 
-@pytest.mark.django_db
-def test_member_calendar_event_ical_creation():
-    """Test that events properly export to ical format."""
-    call_command('loaddata', FIXTURE_FILE)
+class MemberCalendarTests(TestCase):
+    """Tests for MemberCalendar app."""
 
-    event = MemberCalendarEvent.objects.all().first()
-    ics = str(event.to_ical())
-    assert 'BEGIN:VCALENDAR' in ics
-    assert 'SUMMARY:ABCs of Socialism Reading Group - May Session' in ics
+    fixtures = [FIXTURE_FILE]
 
-    c = Client()
-    req = c.get(event.url + '?format=ical')
-    assert req.status_code == 200
-    assert req._headers['content-type'] == ('Content-Type', 'text/calendar')
+    def test_member_calendar_event_ical_creation(self):
+        """Test that events properly export to ical format."""
+        event = MemberCalendarEvent.objects.all().first()
+        ics = str(event.to_ical())
+        assert 'BEGIN:VCALENDAR' in ics
+        assert 'SUMMARY:ABCs of Socialism Reading Group - May Session' in ics
 
-    req = c.get(event.url)
-    assert req.status_code == 200
-    assert req._headers['content-type'] == ('Content-Type', 'text/html; charset=utf-8')
+        c = Client()
+        req = c.get(event.url + '?format=ical')
+        assert req.status_code == 200
+        assert req._headers['content-type'] == ('Content-Type', 'text/calendar')
 
-    req = c.get(event.url + '?format=test')
-    assert req.content.decode('utf8') == 'Could not export event\n\nUnrecognised format.'
+        req = c.get(event.url)
+        assert req.status_code == 200
+        assert req._headers['content-type'] == ('Content-Type', 'text/html; charset=utf-8')
 
+        req = c.get(event.url + '?format=test')
+        assert req.content.decode('utf8') == 'Could not export event\n\nUnrecognised format.'
 
-@pytest.mark.django_db
-def test_member_calendar_model():
-    """Test creation of MemberCalendarEvents."""
-    call_command('loaddata', FIXTURE_FILE)
+    def test_member_calendar_model(self):
+        """Test creation of MemberCalendarEvents."""
+        event = MemberCalendarEvent.objects.all().first()
+        assert event.title == 'ABCs of Socialism Reading Group - May Session'
+        assert event.slug == '2017-05-21-abcs-of-socialism-reading-group-may-session'
+        assert event.iso_start_time == '2017-05-21T10:00:00'
+        assert event.iso_end_time == '2017-05-21T13:00:00'
+        event.title = 'Test'
+        event.save()
+        assert event.title == 'Test'
+        assert event.slug == '2017-05-21-test'
 
-    event = MemberCalendarEvent.objects.all().first()
-    assert event.title == 'ABCs of Socialism Reading Group - May Session'
-    assert event.slug == '2017-05-21-abcs-of-socialism-reading-group-may-session'
-    assert event.iso_start_time == '2017-05-21T10:00:00'
-    assert event.iso_end_time == '2017-05-21T13:00:00'
-    event.title = 'Test'
-    event.save()
-    assert event.title == 'Test'
-    assert event.slug == '2017-05-21-test'
+    def test_member_calendar_home_page(self):
+        """Test routing and MemberCalendarHomePage rendering."""
+        c = Client()
+        req = c.get('/member-calendar/')
 
+        assert req.status_code == 200
+        assert isinstance(req.context['month'], int)
 
-@pytest.mark.django_db
-def test_member_calendar_home_page():
-    """Test routing and MemberCalendarHomePage rendering."""
-    call_command('loaddata', FIXTURE_FILE)
-    c = Client()
-    req = c.get('/member-calendar/')
+        req = c.get('/member-calendar/2017/5/')
+        assert req.context['events_dict'].get(21).title == 'ABCs of Socialism Reading Group - May Session'
 
-    assert req.status_code == 200
-    assert isinstance(req.context['month'], int)
+        req = c.get('/member-calendar/2014/1/')
+        assert len(req.context['events_dict']) == 0
 
-    req = c.get('/member-calendar/2017/5/')
-    assert req.context['events_dict'].get(21).title == 'ABCs of Socialism Reading Group - May Session'
+        req = c.get('/member-calendar/2017/5/21/')
+        assert len(req.context['events']) == 1
+        assert req.context['events'][0].title == 'ABCs of Socialism Reading Group - May Session'
 
-    req = c.get('/member-calendar/2014/1/')
-    assert len(req.context['events_dict']) == 0
+    def test_correct_template_rendering_month_page(self):
+        """Test to ensure that templates render correctly for the month."""
+        c = Client()
+        req = c.get('/member-calendar/2017/5/')
 
-    req = c.get('/member-calendar/2017/5/21/')
-    assert len(req.context['events']) == 1
-    assert req.context['events'][0].title == 'ABCs of Socialism Reading Group - May Session'
+        assert "/member-calendar/2017/5/21" in req.content.decode('utf8')
 
+    def test_correct_template_rendering_day_page(self):
+        """Test to ensure that template renders correctly for the day."""
+        c = Client()
+        req = c.get('/member-calendar/2017/5/21/')
 
-@pytest.mark.django_db
-def test_correct_template_rendering_month_page():
-    """Test to ensure that templates render correctly for the month."""
-    call_command('loaddata', FIXTURE_FILE)
-    c = Client()
-    req = c.get('/member-calendar/2017/5/')
+        assert "ABCs of Socialism Reading Group - May Session" in req.content.decode('utf8')
 
-    assert "/member-calendar/2017/5/21" in req.content.decode('utf8')
-
-
-@pytest.mark.django_db
-def test_correct_template_rendering_day_page():
-    """Test to ensure that template renders correctly for the day."""
-    call_command('loaddata', FIXTURE_FILE)
-    c = Client()
-    req = c.get('/member-calendar/2017/5/21/')
-
-    assert "ABCs of Socialism Reading Group - May Session" in req.content.decode('utf8')
-
-
-def test_make_calendar():
-    """Test function to create a list of lists calendar."""
-    year, month, cal = make_calendar(year=2017, month=5)
-    assert year == 2017
-    assert month == 5
-    assert isinstance(cal, list)
-    assert isinstance(cal[0], list)
+    def test_make_calendar(self):
+        """Test function to create a list of lists calendar."""
+        year, month, cal = make_calendar(year=2017, month=5)
+        assert year == 2017
+        assert month == 5
+        assert isinstance(cal, list)
+        assert isinstance(cal[0], list)
