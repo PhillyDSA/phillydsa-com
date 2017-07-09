@@ -70,12 +70,14 @@ class MemberCalendarTests(TestCase):
         req = c.get('/member-calendar/2017/5/')
 
         assert "/member-calendar/2017/5/21" in req.content.decode('utf8')
+        assert '- Events for May 2017' in req.content.decode('utf8')
 
     def test_correct_template_rendering_day_page(self):
         """Test to ensure that template renders correctly for the day."""
         c = Client()
         req = c.get('/member-calendar/2017/5/21/')
 
+        assert '- Events for 21 May 2017' in req.content.decode('utf8')
         assert "ABCs of Socialism Reading Group - May Session" in req.content.decode('utf8')
 
     def test_make_calendar(self):

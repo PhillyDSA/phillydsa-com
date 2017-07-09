@@ -1,5 +1,6 @@
 {% load static %}
 {% load menu_tags %}
+{% load common_tags %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -59,22 +60,20 @@
         <meta name="msapplication-wide310x150logo" content="{% static 'favicon/mstile-310x150.png' %}" />
         <meta name="msapplication-square310x310logo" content="{% static 'favicon/mstile-310x310.png' %}" />
 
+        <title>{{ page|generate_page_title }} {% block extra_title %} {% endblock %}</title>
 
-        {% with self.get_site.site_name as site_name %}
-        {% block title %}
-            {% if self.seo_title %}
-                <title>{{ self.seo_title }}{% if site_name %} - {{ site_name }}{% endif %}</title>
-                <meta property="og:title" content="{{ self.seo_title }}{% if site_name %} - {{ site_name }}{% endif %}">
-                <meta property="twitter:title" content="{{ self.seo_title }}{% if site_name %} - {{ site_name }}{% endif %}">
-            {% else %}
-                <title>{{ page.title }}{% if site_name %} - {{ site_name }}{% endif %}</title>
-                <meta property="og:title" content="{{ page.title }}{% if site_name %} - {{ site_name }}{% endif %}">
-                <meta property="twitter:title" content="{{ page.title }}{% if site_name %} - {{ site_name }}{% endif %}">
+
+        <meta property="og:title" content="{{ page|generate_page_title }}">
+        <meta property="twitter:title" content="{{ page|generate_page_title }}">
+
+        <meta name="description" content="
+        {% block meta_description %}
+            {% if page.search_description %}
+                {{ page.seo_description }}
+            {% elif page.body %}
+                {{ page.body | striptags | truncatewords_html:20 | strip_double_quotes }}
             {% endif %}
-        {% endblock %}
-        {% endwith %}
-
-        <meta name="description" content="" />
+        {% endblock %}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {% if request.COOKIES.css_cached %}

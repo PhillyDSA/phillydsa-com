@@ -6,6 +6,6 @@ pip-tools
 coverage
 pytest-cov
 pytest-django
-django-debug-toolbar
 codecov
 django-template-debug
+ipdb

@@ -25,3 +25,10 @@ def zulu_time(date_obj):
 def strip_double_quotes(text):
     """Return string with double quote marks replaced by single quote marks."""
     return text.replace('"', "'")
+
+
+@register.filter
+def generate_page_title(page):
+    """Return a string for use in <title> and <og> tags."""
+    title = page.seo_title or page.title
+    return '{0} - {1}'.format(page.get_site().site_name, title)
