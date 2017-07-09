@@ -69,7 +69,7 @@
         <meta name="description" content="
         {% block meta_description %}
             {% if page.search_description %}
-                {{ page.seo_description }}
+                {{ page.search_description }}
             {% elif page.body %}
                 {{ page.body | striptags | truncatewords_html:20 | strip_double_quotes }}
             {% endif %}
