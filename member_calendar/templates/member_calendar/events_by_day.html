@@ -3,6 +3,10 @@
 {% load wagtailcore_tags %}
 {% load common_tags %}
 
+{% block extra_title %}
+    - Events for {{ extra_data|get_item:'day' }} {{ month_name }} {{ year }}
+{% endblock %}
+
 {% block body_class %}template-membercalendarhomepage{% endblock %}
 
 {% block content %}
