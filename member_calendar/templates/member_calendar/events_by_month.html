@@ -12,10 +12,11 @@
 
 {% block content %}
     <div class="w-100">
-        <h1 class="f1 tc mb5">
-        <a href="{% routablepageurl page "events" previous_year previous_month %}">&laquo;</a>
-        {{ month_name }} {{ year }}
-        <a href="{% routablepageurl page "events" next_year next_month %}">&raquo;</a></h1>
+        <div class="w-100 tc mb5">
+        <h1 class="f1 tc mb0">{{ month_name }} {{ year }}</h1>
+        <a href="{% routablepageurl page "events" previous_year previous_month %}" rel="nofollow" class="pa2 ph3 mv2 bg-black dib white ttu f7">🡸 Previous month</a>
+        <a href="{% routablepageurl page "events" next_year next_month %}" rel="nofollow" class="pa2 ph3 mv2 bg-black dib white ttu f7">Next month 🡺</a></h1>
+        </div>
         <div class="dt center">
             <div class="dt">
                 <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Su </div>
