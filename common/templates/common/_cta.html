@@ -1,15 +1,21 @@
 {% load wagtailcore_tags %}
 <section class="pv2 pv5-ns">
-  <article class="mw8 center br2 bg-red">
-    <h2 class="fw6 ph3 ph4-ns pt3 pb1 white mt0 mb0 ">{{ value.title }}</h2>  <!--headline-->
-    <div class="dt-ns dt--fixed-ns w-100">
-      <div class="pa3 pa4-ns dtc-ns w-60-ns v-mid"> <!--copy-->
+  <article class="mw8 center br2 bg-red">  <!--headline-->
+    <h2 class="fw6 ph3 ph4-ns pt3 pb1 white mt0 mb0">
+      <span class="white">{{ value.title }}</span>
+    </h2>
+    <div class="dt-ns dt--fixed-ns w-100"> <!--copy-->
+      <div class="pa3 pa4-ns dtc-ns w-60-ns v-mid">
         <div>
-            <p class="white fw4 measure lh-copy mv0">{{ value.cta_copy }}</p>
+            <p class="white fw4 measure lh-copy mv0">
+              {{ value.cta_copy }}
+            </p>
         </div>
       </div>
       <div class="pa3 pa4-ns dtc-ns v-mid">  <!--button-->
-        <a href="{% if value.button_link %}{{ value.button_link.url }}{% else %}{{ value.button_external_link }}{% endif %}" class="no-underline f6 tc db w-100 pv3 bg-animate bg-white ba b--light-red bw1 red br2">{{ value.button_title }}</a>
+        <a href="{% if value.button_link %}{{ value.button_link.url }}{% else %}{{ value.button_external_link }}{% endif %}" class="no-underline f6 tc db w-100 pv3 bg-animate bg-white ba b--light-red bw1 red br2">
+          {{ value.button_title }}
+        </a>
       </div>
     </div>
   </article>
