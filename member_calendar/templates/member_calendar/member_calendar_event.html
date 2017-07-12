@@ -1,8 +1,44 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
+{% load common_tags %}
 
 {% block content %}
     {% with page as event %}
         {% include "member_calendar/_event.html" %}
+      <script type="application/ld+json">
+    {
+    "@context" : "http://schema.org",
+    "@type" : "Event",
+    "name": "{{ event.title }}",
+    "startDate": "{{ event.iso_start_time }}",
+    "endDate": "{{ event.iso_end_time }}",
+    "location": {
+        "@type": "Place",
+        {% if event.location_name %}
+        "name": "{{ event.location_name }}",
+        {% endif %}
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{ event.location_street_address }}",
+            "addressLocality": "{{ event.location_city }}",
+            "addressRegion": "{{ event.location_state }}",
+            "postalCode": "{{ event.location_zip_code }}"
+        }
+    },
+    "description": "{{ event.body| striptags | truncatewords_html:50 | strip_double_quotes }}",
+    "image": "https://www.phillydsa.com/static/imgs/DSAlogo.png",
+    "organizer": {
+        "@type": "Organization",
+        "name" : "Philly DSA",
+        "url" : "https://www.phillydsa.com/",
+        "logo": "https://www.phillydsa.com/static/imgs/DSAlogo.png",
+        "sameAs" : [
+            "https://www.facebook.com/phillyDSA",
+            "https://www.twitter.com/phillyDSA"
+        ]
+    }
+  }
+  </script>
     {% endwith %}
+
 {% endblock %}

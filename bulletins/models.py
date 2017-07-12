@@ -119,6 +119,8 @@ class BulletinEmail(Page):
         template_string = render_to_string("bulletins/bulletin_html_email.html", self.get_context(request))
         prepared_resp = premailer.Premailer(template_string,
                                             base_url=settings.BASE_URL,
+                                            remove_classes=True,
+                                            strip_important=True,
                                             cssutils_logging_level=logging.CRITICAL).transform()
         return prepared_resp
 

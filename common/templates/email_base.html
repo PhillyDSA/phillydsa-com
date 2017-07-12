@@ -1,70 +1,31 @@
 {% load static %}
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js fw4"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
-           {% include 'common/css.html' %}
-        </style>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+       {% include 'common/css.html' %}
+    </style>
+</head>
 
-    <body class="{% block body_class %}{% endblock %} manifold">
-        {% block headerline%}
-        <header class="manifold center mb4 ph3 ph4-ns pt4 pt5-ns">
-            <a href="/" class="link black"><div class="ph2-ns tc">
-                <img class="dib h2 h3-ns" src="{% static 'imgs/DSAlogo.png' %}">
-                <h1 class="dib f-subheadline-ns f2 fw3 mb0 mt1 manifold tracked-tight">Philly DSA</h1>
-            </div></a>
-        </header>
-        {% endblock %}
+<body class="{% block body_class %}{% endblock %} manifold">
+    <main class="pa2-ns pa1 center w-100">
 
-        <main class="pa2 center w-100">
-        {% block content %}
+    {% block content %}
+    {# page content goes here #}
+    {% endblock %}
 
-        {# page content goes here #}
+    </main>
 
-        {% endblock %}
-        </main>
-
-        <footer class="pv4 ph3 mt5 ph5-ns tc bt b--light-gray">
-            <a class="link dim gray dib h2 w2 br-100 mr3 " href="http://www.facebook.com/phillyDSA" title="">
-                <svg data-icon="facebook" viewBox="0 0 32 32" style="fill:currentcolor">
-                    <title>facebook icon</title>
-                    <path d="M8 12 L13 12 L13 8 C13 2 17 1 24 2 L24 7 C20 7 19 7 19 10 L19 12 L24 12 L23 18 L19 18 L19 30 L13 30 L13 18 L8 18 z"></path>
-                </svg>
-            </a>
-            <a class="link dim gray dib h2 w2 br-100 mr3 " href="http://www.twitter.com/phillydsa" title="">
-                <svg data-icon="twitter" viewBox="0 0 32 32" style="fill:currentcolor">
-                <title>twitter icon</title>
-                <path d="M2 4 C6 8 10 12 15 11 A6 6 0 0 1 22 4 A6 6 0 0 1 26 6 A8 8 0 0 0 31 4 A8 8 0 0 1 28 8 A8 8 0 0 0 32 7 A8 8 0 0 1 28 11 A18 18 0 0 1 10 30 A18 18 0 0 1 0 27 A12 12 0 0 0 8 24 A8 8 0 0 1 3 20 A8 8 0 0 0 6 19.5 A8 8 0 0 1 0 12 A8 8 0 0 0 3 13 A8 8 0 0 1 2 4"></path>
-                </svg>
-            </a>
-            <div class="pa4 w-100 tc gray">
-            &copy; 2017 Philadelphia Local of the Democratic Socialists of America
-            </div>
-        </footer>
-
-        {# Global javascript #}
-        <script type='application/ld+json'>
-            {
-                "@context" : "http://schema.org",
-                "@type" : "Organization",
-                "name" : "Philly DSA",
-                "url" : "https://www.phillydsa.com/",
-                "logo": "https://www.phillydsa.com/static/imgs/DSAlogo.png",
-                "sameAs" : [
-                    "https://www.facebook.com/phillyDSA",
-                    "https://www.twitter.com/phillyDSA"
-                ]
-            }
-        </script>
-
-        {% block extra_js %}
-            {# Override this in templates to add extra javascript #}
-        {% endblock %}
-    </body>
+<footer class="pv4 ph3 mt5 ph5-ns tc bt b--light-gray">
+    <a class="link dim gray dib h2 w2 br-100 mr3 " href="http://www.facebook.com/phillyDSA" title="Follow us on Facebook">
+        <svg data-icon="facebook" viewBox="0 0 32 32" style="fill:currentcolor"><title>facebook icon</title><path d="M8 12 L13 12 L13 8 C13 2 17 1 24 2 L24 7 C20 7 19 7 19 10 L19 12 L24 12 L23 18 L19 18 L19 30 L13 30 L13 18 L8 18 z"></path></svg>
+    </a>
+    <a class="link dim gray dib h2 w2 br-100 mr3 " href="http://www.twitter.com/phillydsa" title="Follow us on Twitter">
+        <svg data-icon="twitter" viewBox="0 0 32 32" style="fill:currentcolor"><title>twitter icon</title><path d="M2 4 C6 8 10 12 15 11 A6 6 0 0 1 22 4 A6 6 0 0 1 26 6 A8 8 0 0 0 31 4 A8 8 0 0 1 28 8 A8 8 0 0 0 32 7 A8 8 0 0 1 28 11 A18 18 0 0 1 10 30 A18 18 0 0 1 0 27 A12 12 0 0 0 8 24 A8 8 0 0 1 3 20 A8 8 0 0 0 6 19.5 A8 8 0 0 1 0 12 A8 8 0 0 0 3 13 A8 8 0 0 1 2 4"></path></svg>
+    </a>
+    <div class="pa4 w-100 tc gray">Social media got you down? Check us out on the web at <a href="https://phillydsa.com" class="link red">PhillyDSA.com</a><br>
+    &copy; 2017 Philadelphia Local of the Democratic Socialists of America</div>
+</footer>
+</body>
 </html>

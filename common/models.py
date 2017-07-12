@@ -16,6 +16,11 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from common import blocks as common_blocks
 from common.snippets import FundraisingSnippet
 
+from common.site_settings import (  # noqa
+    SocialMediaSettings,
+    SEOSettings
+)
+
 
 class TopLevelPages(Page):
     """Container for all top-level pages."""
