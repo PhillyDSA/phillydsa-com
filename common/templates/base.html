@@ -10,91 +10,93 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--><html class="no-js fw4"> <!--<![endif]-->
-    <head>
-        <script>new FontFace("Manifold", "url({% static 'fonts/ManifoldDSA-Medium.woff2' %})").load()
-        </script>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<head>
+    <script>new FontFace("Manifold", "url({% static 'fonts/ManifoldDSA-Medium.woff2' %})").load()
+    </script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 
-        <meta name="google-site-verification" content="{{ GOOGLE_VERIFICATION_KEY }}" />
+    <meta name="google-site-verification" content="{{ settings.common.seosettings.google_site_verification_key }}" />
 
-        <link rel="canonical" href="https://www.phillydsa.com">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="communism, socialism, philadelphia, phillydsa, dsa, philly" >
-        <meta name="description" content="Home of the Philadelphia Local of the Democratic Socialists of America">
+    <link rel="canonical" href="{{ request.site.root_url }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="{{ settings.common.seosettings.keywords }}" >
+    <meta name="description" content="{{ settings.common.seosettings.site_description }}">
 
-        <!--FACEBOOK-->
-        <meta property="og:site_name" content="PhillyDSA">
-        <meta property="og:url" content="https://www.phillydsa.com" >
-        <meta property="og:description" content="Home of the Philadelphia Local of the Democratic Socialists of America" >
-        <meta property="og:image" content="https://www.phillydsa.com/static/imgs/DSAlogo.png" >
-        <meta property="fb:app_id" content="" >
-        <meta property="og:type" content="website" >
-        <meta property="og:locale" content="en-US" >
+    <!--FACEBOOK-->
+    <meta property="og:site_name" content="{{ settings.common.seosettings.organization_short_name }}">
+    <meta property="og:url" content="{{ request.site.root_url }}" >
+    <meta property="og:description" content="{{ settings.common.seosettings.site_description }}" >
+    <meta property="og:image" content="{{ settings.common.seosettings.logo }}" >
+    <meta property="og:type" content="website" >
+    <meta property="og:locale" content="en-US" >
 
-        <!--TWITTER-->
-        <meta property="twitter:card" content="summary">
-        <meta property="twitter:description" content="{% block page_description %}Home of the Philadelphia Local of the Democratic Socialists of America{% endblock %}" >
-        <meta property="twitter:creator" content="@phillydsa" >
-        <meta property="twitter:url" content="https://www.phillydsa.com" >
-        <meta property="twitter:image" content="https://www.phillydsa.com/static/imgs/DSAlogo.png" >
-        <meta property="twitter:image:alt" content="PhillyDSA">
+    <!--TWITTER-->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:description" content="{{ settings.common.seosettings.site_description }}" >
+    <meta property="twitter:creator" content="" >
+    <meta property="twitter:url" content="{{ request.site.root_url }}" >
+    <meta property="twitter:image" content="{{ settings.common.seosettings.logo }}" >
+    <meta property="twitter:image:alt" content="{{ settings.common.seosettings.organization_short_name }}">
 
-        <!--FAVICON-->
-        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'favicon/apple-touch-icon-57x57.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'favicon/apple-touch-icon-114x114.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'favicon/apple-touch-icon-72x72.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'favicon/apple-touch-icon-144x144.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{% static 'favicon/apple-touch-icon-60x60.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'favicon/apple-touch-icon-120x120.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static 'favicon/apple-touch-icon-76x76.png' %}" />
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'favicon/apple-touch-icon-152x152.png' %}" />
-        <link rel="icon" type="image/png" href="{% static 'favicon/favicon-196x196.png' %}" sizes="196x196" />
-        <link rel="icon" type="image/png" href="{% static 'favicon/favicon-96x96.png' %}" sizes="96x96" />
-        <link rel="icon" type="image/png" href="{% static 'favicon/favicon-32x32.png' %}" sizes="32x32" />
-        <link rel="icon" type="image/png" href="{% static 'favicon/favicon-16x16.png' %}" sizes="16x16" />
-        <link rel="icon" type="image/png" href="{% static 'favicon/favicon-128.png' %}" sizes="128x128" />
-        <meta name="application-name" content="&nbsp;"/>
-        <meta name="msapplication-TileColor" content="#FFFFFF" />
-        <meta name="msapplication-TileImage" content="{% static 'favicon/mstile-144x144.png' %}" />
-        <meta name="msapplication-square70x70logo" content="{% static 'favicon/mstile-70x70.png' %}" />
-        <meta name="msapplication-square150x150logo" content="{% static 'favicon/mstile-150x150.png' %}" />
-        <meta name="msapplication-wide310x150logo" content="{% static 'favicon/mstile-310x150.png' %}" />
-        <meta name="msapplication-square310x310logo" content="{% static 'favicon/mstile-310x310.png' %}" />
+    <!--FAVICON-->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'favicon/apple-touch-icon-57x57.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'favicon/apple-touch-icon-114x114.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'favicon/apple-touch-icon-72x72.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'favicon/apple-touch-icon-144x144.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{% static 'favicon/apple-touch-icon-60x60.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'favicon/apple-touch-icon-120x120.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static 'favicon/apple-touch-icon-76x76.png' %}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'favicon/apple-touch-icon-152x152.png' %}" />
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-196x196.png' %}" sizes="196x196" />
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-32x32.png' %}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-16x16.png' %}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-128.png' %}" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{% static 'favicon/mstile-144x144.png' %}" />
+    <meta name="msapplication-square70x70logo" content="{% static 'favicon/mstile-70x70.png' %}" />
+    <meta name="msapplication-square150x150logo" content="{% static 'favicon/mstile-150x150.png' %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static 'favicon/mstile-310x150.png' %}" />
+    <meta name="msapplication-square310x310logo" content="{% static 'favicon/mstile-310x310.png' %}" />
 
-        <title>{{ page|generate_page_title }} {% block extra_title %} {% endblock %}</title>
+    <title>
+    {% block title %}{{ page|generate_page_title }}{% endblock %}
+    {% block extra_title %}{% endblock %}
+    </title>
 
 
-        <meta property="og:title" content="{{ page|generate_page_title }}">
-        <meta property="twitter:title" content="{{ page|generate_page_title }}">
+    <meta property="og:title" content="{{ page|generate_page_title }}">
+    <meta property="twitter:title" content="{{ page|generate_page_title }}">
 
-        <meta name="description" content="
-        {% block meta_description %}
-            {% if page.search_description %}
-                {{ page.search_description }}
-            {% elif page.body %}
-                {{ page.body | striptags | truncatewords_html:20 | strip_double_quotes }}
-            {% endif %}
-        {% endblock %}" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        {% if request.COOKIES.css_cached %}
-            <link rel="stylesheet" type="text/css" href="{% static 'specific/phillydsa-style.min.css' %}">
-        {% else %}
-            <link rel="prefetch" href="{% static 'specific/phillydsa-style.min.css' %}">
-            <style>
-            {% include "common/css.html" %}
-            </style>
+    <meta name="description" content="
+    {% block meta_description %}
+        {% if page.search_description %}
+            {{ page.search_description }}
+        {% elif page.body %}
+            {{ page.body | striptags | truncatewords_html:20 | strip_double_quotes }}
         {% endif %}
-    </head>
+    {% endblock %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {% if request.COOKIES.css_cached %}
+        <link rel="stylesheet" type="text/css" href="{% static 'specific/phillydsa-style.min.css' %}">
+    {% else %}
+        <link rel="prefetch" href="{% static 'specific/phillydsa-style.min.css' %}">
+        <style>
+        {% include "common/css.html" %}
+        </style>
+    {% endif %}
+</head>
 
     <body class="{% block body_class %}{% endblock %} sans-serif">
         {% block headerline %}
         <header class="center mb4 ph3 ph4-ns pt4 pt5-ns">
             <a href="/" class="link black"><div class="ph2-ns tc">
                 <img class="dib h2 h3-ns" src="{% static 'imgs/dsa_logo2.svg' %}">
-                <h1 class="dib f-subheadline-ns f2 fw3 mb0 mt1 tracked-tight">Philly DSA</h1>
+                <h1 class="dib f-subheadline-ns f2 fw3 mb0 mt1 tracked-tight">{{ settings.common.seosettings.organization_short_name }}</h1>
             </div></a>
         </header>
 
@@ -146,11 +148,9 @@
         </a>
         {% endif %}
             <div class="pa4 w-100 tc gray">
-            &copy; 2017 Philadelphia Local of the Democratic Socialists of America
+            &copy; 2017 {{ settings.common.seosettings.organization_full_name }}
             </div>
         </footer>
-
-
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
@@ -163,7 +163,7 @@
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-          ga('create', '{{ GOOGLE_ANALYTICS_KEY }}', 'auto');
+          ga('create', '{{ settings.common.seosettings.google_analytics_key }}', 'auto');
           ga('send', 'pageview');
         </script>
 

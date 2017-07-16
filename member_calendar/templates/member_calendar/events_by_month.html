@@ -7,47 +7,47 @@
 {% block body_class %}template-membercalendarhomepage{% endblock %}
 
 {% block extra_title %}
-    - Events for {{ month_name }} {{ year }}
+  - Events for {{ month_name }} {{ year }}
 {% endblock %}
 
 {% block content %}
-    <div class="w-100">
-        <div class="w-100 tc mb5">
-        <h1 class="f1 tc mb0">{{ month_name }} {{ year }}</h1>
-        <a href="{% routablepageurl page "events" previous_year previous_month %}" rel="nofollow" class="pa2 ph3 mv2 bg-black dib white ttu f7">🡸 Previous month</a>
-        <a href="{% routablepageurl page "events" next_year next_month %}" rel="nofollow" class="pa2 ph3 mv2 bg-black dib white ttu f7">Next month 🡺</a></h1>
-        </div>
-        <div class="dt center">
-            <div class="dt">
-                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Su </div>
-                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Mo </div>
-                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Tu </div>
-                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> We </div>
-                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Th </div>
-                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Fr </div>
-                <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Sa </div>
-            </div>
-        {% for week in calendar %}
-            <div class="dt code">
-            {% for day in week %}
-                {% if day != 0 %}
-                    {% if events_dict|get_item:day %}
-                        <div class="w3 pa1 h3 v-mid dtc tc gray">
-                            <a href="{% routablepageurl page "events" year=year month=month day=day %}" class="dib pa3 bg-red white br-100">{{ day|stringformat:"02d" }}</a>
-                        </div>
-                    {% else %}
-                        <div class="w3 pa2 h3 v-mid dtc br-100 tc gray">{{ day|stringformat:"02d" }}</div>
-                    {% endif %}
-                {% else %}
-                    <div class="w3 pa2 h3 v-mid dtc br-100 tc gray">&nbsp;</div>
-                {% endif %}
-            {% endfor %}
-            </div>
-        {% endfor %}
-        </div>
+  <div class="w-100">
+    <div class="w-100 tc mb5">
+    <h1 class="f1 tc mb0">{{ month_name }} {{ year }}</h1>
+    <a href="{% routablepageurl page "events" previous_year previous_month %}" rel="nofollow" class="pa2 ph3 mv2 bg-black dib white ttu f7">🡸 Previous month</a>
+    <a href="{% routablepageurl page "events" next_year next_month %}" rel="nofollow" class="pa2 ph3 mv2 bg-black dib white ttu f7">Next month 🡺</a></h1>
     </div>
-    <div class="measure-wide center">
-        <h1 class="mt5 mb4 fw3 f-title meaure center">{{ page.title|safe }}</h1>
-        {{ page.intro|safe }}
+    <div class="dt center">
+      <div class="dt">
+        <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Su </div>
+        <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Mo </div>
+        <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Tu </div>
+        <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> We </div>
+        <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Th </div>
+        <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Fr </div>
+        <div class="fw6 w3 pa2 h3 v-mid dtc br-100 tc"> Sa </div>
+      </div>
+    {% for week in calendar %}
+      <div class="dt code">
+      {% for day in week %}
+        {% if day != 0 %}
+          {% if events_dict|get_item:day %}
+            <div class="w3 pa1 h3 v-mid dtc tc gray">
+              <a href="{% routablepageurl page "events" year=year month=month day=day %}" class="dib pa3 bg-red white br-100">{{ day|stringformat:"02d" }}</a>
+            </div>
+          {% else %}
+            <div class="w3 pa2 h3 v-mid dtc br-100 tc gray">{{ day|stringformat:"02d" }}</div>
+          {% endif %}
+        {% else %}
+          <div class="w3 pa2 h3 v-mid dtc br-100 tc gray">&nbsp;</div>
+        {% endif %}
+      {% endfor %}
+      </div>
+    {% endfor %}
     </div>
+  </div>
+  <div class="measure-wide center">
+    <h1 class="mt5 mb4 fw3 f-title meaure center">{{ page.title|safe }}</h1>
+    {{ page.intro|safe }}
+  </div>
 {% endblock %}
