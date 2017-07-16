@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
 from django.conf.urls import include, url
+from django.views.defaults import page_not_found
 from django.views.generic import TemplateView
 
 from search import views as search_views
@@ -18,6 +19,7 @@ urlpatterns = [
     url(r'^search/$', search_views.search, name='search'),
     url(r'^sitemap\.xml$', sitemap),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+    url(r'^404/$', page_not_found, kwargs={'exception': Exception("Page not Found")}),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
