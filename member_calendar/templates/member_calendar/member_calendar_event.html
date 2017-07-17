@@ -2,6 +2,10 @@
 {% load wagtailcore_tags %}
 {% load common_tags %}
 
+{% block extra_title %}
+    - {{ page.event_date }}
+{% endblock %}
+
 {% block content %}
     {% with page as event %}
         {% include "member_calendar/_event.html" %}
