@@ -16,6 +16,7 @@ class SocialMediaSettings(BaseSetting):
 
     facebook = models.URLField(blank=True, help_text='Your Facebook page URL')
     twitter = models.URLField(blank=True, help_text='Your twitter profile URL')
+    twitter_screen_name = models.CharField(blank=True, max_length=16, help_text='Your twitter screenname (with the "@"')
     instagram = models.URLField(blank=True, help_text='Your Instagram profile URL')
     youtube = models.URLField(blank=True, help_text='Your YouTube channel or user account URL')
 
