@@ -19,14 +19,12 @@ from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel,
-    StreamFieldPanel,
-    MultiFieldPanel)
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtailsearch import index
 
 from member_calendar.utils import make_calendar
 from common import blocks as common_blocks
+from common.open_graph import OpenGraphMixin
 
 
 class BulletinHomePage(RoutablePageMixin, Page):
@@ -93,7 +91,7 @@ class BulletinHomePage(RoutablePageMixin, Page):
         return context
 
 
-class BulletinEmail(Page):
+class BulletinEmail(OpenGraphMixin, Page):
     """Page for a single bulletin email."""
 
     bulletin_date = models.DateField("Bulletin Date")
@@ -118,13 +116,6 @@ class BulletinEmail(Page):
         FieldPanel('bulletin_date'),
         StreamFieldPanel('body'),
     ]
-
-    promote_panels = [
-        MultiFieldPanel([
-            FieldPanel('seo_title'),
-            FieldPanel('show_in_menus'),
-            FieldPanel('search_description'),
-        ])]
 
     def save(self, *args, **kwargs):
         """Override to have a more specific slug w/ date & title."""

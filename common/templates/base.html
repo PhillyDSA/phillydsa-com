@@ -3,83 +3,80 @@
 {% load common_tags %}
 
 {% load wagtailsettings_tags %}
+{% load wagtailimages_tags %}
 {% get_settings %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js fw4"> <!--<![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js fw4" lang="en"> <!--<![endif]-->
 <head>
-    <script>new FontFace("Manifold", "url({% static 'fonts/ManifoldDSA-Medium.woff2' %})").load()
-    </script>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <script>new FontFace("Manifold", "url({% static 'fonts/ManifoldDSA-Medium.woff2' %})").load()</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="google-site-verification" content="{{ settings.common.seosettings.google_site_verification_key }}">
 
-    <meta name="google-site-verification" content="{{ settings.common.seosettings.google_site_verification_key }}" />
+    <title>{% block title %}{{ page|generate_page_title }}{% endblock %}{% block extra_title %}{% endblock %}</title>
 
-    <link rel="canonical" href="{{ request.site.root_url }}">
+    <link rel="canonical" href="{{ page.full_url }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="{{ settings.common.seosettings.keywords }}" >
-    <meta name="description" content="{{ settings.common.seosettings.site_description }}">
+    <meta name="description" content="{{ page | generate_page_description }}">
+    <meta name="keywords" content="{{ settings.common.seosettings.keywords }}">
 
     <!--FACEBOOK-->
+    <meta property="og:url" content="{{ page.full_url }}">
+    <meta property="og:type" content="{{ page.og_type }}">
     <meta property="og:site_name" content="{{ settings.common.seosettings.organization_short_name }}">
-    <meta property="og:url" content="{{ request.site.root_url }}" >
-    <meta property="og:description" content="{{ settings.common.seosettings.site_description }}" >
-    <meta property="og:image" content="{{ settings.common.seosettings.logo }}" >
-    <meta property="og:type" content="website" >
-    <meta property="og:locale" content="en-US" >
+    <meta property="og:title" content="{{ page|generate_page_title }}">
+    <meta property="og:description" content="{{ page | generate_page_description }}">
+    <meta property="og:locale" content="en-US">
 
     <!--TWITTER-->
     <meta property="twitter:card" content="summary">
-    <meta property="twitter:description" content="{{ settings.common.seosettings.site_description }}" >
-    <meta property="twitter:creator" content="" >
-    <meta property="twitter:url" content="{{ request.site.root_url }}" >
-    <meta property="twitter:image" content="{{ settings.common.seosettings.logo }}" >
+    <meta property="twitter:title" content="{{ page|generate_page_title }}">
+    <meta property="twitter:description" content="{{ page | generate_page_description }}">
+    <meta property="twitter:creator" content="{{ settings.common.socialmediasettings.twitter_screen_name }}">
+    <meta property="twitter:site" content="{{ settings.common.socialmediasettings.twitter_screen_name }}">
     <meta property="twitter:image:alt" content="{{ settings.common.seosettings.organization_short_name }}">
 
+    <!-- BOTH -->
+    {% if page.share_image %}
+        {% image page.share_image original as tmp_photo %}
+            <meta property="og:image" content="{{ request.site.root_url}}{{ tmp_photo.url}}">
+            <meta property="og:image:width" content="{{ tmp_photo.width }}">
+            <meta property="og:image:height" content="{{ tmp_photo.height }}">
+            <meta property="twitter:image" content="{{ request.site.root_url}}{{ tmp_photo.url }}">
+    {% else %}
+        {% image settings.common.seosettings.logo original as tmp_photo %}
+            <meta property="og:image" content="{{ request.site.root_url}}{{ tmp_photo.url}}">
+            <meta property="og:image:width" content="{{ tmp_photo.width }}">
+            <meta property="og:image:height" content="{{ tmp_photo.height }}">
+            <meta property="twitter:image" content="{{ request.site.root_url}}{{ tmp_photo.url }}">
+    {% endif %}
+
+
     <!--FAVICON-->
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{% static 'favicon/apple-touch-icon-57x57.png' %}" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'favicon/apple-touch-icon-114x114.png' %}" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'favicon/apple-touch-icon-72x72.png' %}" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'favicon/apple-touch-icon-144x144.png' %}" />
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{% static 'favicon/apple-touch-icon-60x60.png' %}" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'favicon/apple-touch-icon-120x120.png' %}" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{% static 'favicon/apple-touch-icon-76x76.png' %}" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'favicon/apple-touch-icon-152x152.png' %}" />
-    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-196x196.png' %}" sizes="196x196" />
-    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-96x96.png' %}" sizes="96x96" />
-    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-32x32.png' %}" sizes="32x32" />
-    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-16x16.png' %}" sizes="16x16" />
-    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-128.png' %}" sizes="128x128" />
-    <meta name="application-name" content="&nbsp;"/>
-    <meta name="msapplication-TileColor" content="#FFFFFF" />
-    <meta name="msapplication-TileImage" content="{% static 'favicon/mstile-144x144.png' %}" />
-    <meta name="msapplication-square70x70logo" content="{% static 'favicon/mstile-70x70.png' %}" />
-    <meta name="msapplication-square150x150logo" content="{% static 'favicon/mstile-150x150.png' %}" />
-    <meta name="msapplication-wide310x150logo" content="{% static 'favicon/mstile-310x150.png' %}" />
-    <meta name="msapplication-square310x310logo" content="{% static 'favicon/mstile-310x310.png' %}" />
-
-    <title>
-    {% block title %}{{ page|generate_page_title }}{% endblock %}
-    {% block extra_title %}{% endblock %}
-    </title>
-
-
-    <meta property="og:title" content="{{ page|generate_page_title }}">
-    <meta property="twitter:title" content="{{ page|generate_page_title }}">
-
-    <meta name="description" content="
-    {% block meta_description %}
-        {% if page.search_description %}
-            {{ page.search_description }}
-        {% elif page.body %}
-            {{ page.body | striptags | truncatewords_html:20 | strip_double_quotes }}
-        {% endif %}
-    {% endblock %}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-touch-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'favicon/apple-touch-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'favicon/apple-touch-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'favicon/apple-touch-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/apple-touch-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/apple-touch-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'favicon/apple-touch-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/apple-touch-icon-152x152.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-196x196.png' %}" sizes="196x196">
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-96x96.png' %}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-32x32.png' %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-16x16.png' %}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{% static 'favicon/favicon-128.png' %}" sizes="128x128">
+    <meta name="application-name" content="{{ request.site.site_name }}">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="{% static 'favicon/mstile-144x144.png' %}">
+    <meta name="msapplication-square70x70logo" content="{% static 'favicon/mstile-70x70.png' %}">
+    <meta name="msapplication-square150x150logo" content="{% static 'favicon/mstile-150x150.png' %}">
+    <meta name="msapplication-wide310x150logo" content="{% static 'favicon/mstile-310x150.png' %}">
+    <meta name="msapplication-square310x310logo" content="{% static 'favicon/mstile-310x310.png' %}">
 
     {% if request.COOKIES.css_cached %}
         <link rel="stylesheet" type="text/css" href="{% static 'specific/phillydsa-style.min.css' %}">
@@ -95,7 +92,7 @@
         {% block headerline %}
         <header class="center mb4 ph3 ph4-ns pt4 pt5-ns">
             <a href="/" class="link black"><div class="ph2-ns tc">
-                <img class="dib h2 h3-ns" src="{% static 'imgs/dsa_logo2.svg' %}">
+                <img class="dib h2 h3-ns" src="{% static 'imgs/dsa_logo2.svg' %}" alt="Chapter Logo">
                 <h1 class="dib f-subheadline-ns f2 fw3 mb0 mt1 tracked-tight">{{ settings.common.seosettings.organization_short_name }}</h1>
             </div></a>
         </header>
