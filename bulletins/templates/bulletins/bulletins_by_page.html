@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load common_tags %}
+
+{% block body_class %}template-outreachbulletinshomepage{% endblock %}
+
+{% block content %}
+    <div class="tc">
+        <h1 class="f2">News & Articles</h1>
+        <div class="pagination">
+            {% if resources.has_previous %}
+                <a href="?page={{ resources.previous_page_number }}" class="f5 no-underline black bg-animate hover-bg-black hover-white pa2 ba border-box mr1"><svg class="w1" data-icon="chevronLeft" viewBox="0 0 32 32" style="fill:currentcolor"><title>chevronLeft icon</title><path d="M20 1 L24 5 L14 16 L24 27 L20 31 L6 16 z"></path></svg><span class="pl1">Newer</span></a>
+            {% endif %}
+            {% for page_num in resources.paginator.page_range %}
+                {% if page_num == resources.number %}<span class="f5 no-underline gray pa2 ba border-box">{{ page_num }}</span>
+                {% else %}
+                <a href="?page={{ page_num }}" class="f5 no-underline black bg-animate hover-bg-black hover-white pa2 ba border-box">{{ page_num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if resources.has_next %}
+                <a href="?page={{ resources.next_page_number }}" class="f5 no-underline black bg-animate hover-bg-black hover-white pa2 ba border-box mr4"><svg class="w1" data-icon="chevronRight" viewBox="0 0 32 32" style="fill:currentcolor"> <title>chevronRight icon</title> <path d="M12 1 L26 16 L12 31 L8 27 L18 16 L8 5 z"></path></svg><span class="pl1">Older</span></a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="w-100">
+        {% for bulletin in resources %}
+            <article class="dark-gray mv4 center measure-wide w-80 pa3-ns">
+                <div class="red fw1 f2"><a href="{{ bulletin.url }}" class="fw3">{{ bulletin.title }}</a></div>
+                <span class="dib gray">{{ bulletin.specific.bulletin_date }}</span>
+                <p class="f6 lh-copy measure mt2">{{ bulletin.specific.body | truncatewords_html:100 }}</p>
+                <a href="{{ bulletin.url }}" class="pa2 ph3 mv2 bg-black dib white">Read more</a>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

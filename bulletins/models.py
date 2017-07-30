@@ -6,6 +6,7 @@ import logging
 
 import premailer
 from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -34,6 +35,23 @@ class BulletinHomePage(RoutablePageMixin, Page):
     subpage_types = ['BulletinEmail']
 
     @route(r'^$')
+    def paginated_bulletins(self, request, *args, **kwargs):
+        """Return paginated bulletins home page."""
+        template_name = 'bulletins/bulletins_by_page.html'
+        context = super(BulletinHomePage, self).get_context(request)
+        all_bulletins = BulletinEmail.objects.live().order_by('-bulletin_date')
+        paginator = Paginator(all_bulletins, 5)
+        page = request.GET.get('page')
+        try:
+            resources = paginator.page(page)
+        except PageNotAnInteger:
+            resources = paginator.page(1)
+        except EmptyPage:
+            resources = paginator.page(paginator.num_pages)
+
+        context['resources'] = resources
+        return render(request, template_name, context)
+
     @route(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$')
     def bulletins(self, request, *args, **kwargs):
         """Return current month bulletins or archives by kwarg."""
