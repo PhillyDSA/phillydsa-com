@@ -53,7 +53,7 @@ request = http.request(options, function (res) {
             var urlArray = result['urlset']['url']
             var urlList = []
             for (var i = 0; i < urlArray.length; i++) {
-                urlList.push(urlArray[i]['loc'][0].replace('localhost', 'localhost:8000'));
+                urlList.push(urlArray[i]['loc'][0]);
             }
             console.log(urlList)
             createCSS(urlList)

@@ -6,6 +6,7 @@ import logging
 
 import premailer
 from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -18,14 +19,12 @@ from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailadmin.edit_handlers import (
-    FieldPanel,
-    StreamFieldPanel,
-    MultiFieldPanel)
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtailsearch import index
 
 from member_calendar.utils import make_calendar
 from common import blocks as common_blocks
+from common.open_graph import OpenGraphMixin
 
 
 class BulletinHomePage(RoutablePageMixin, Page):
@@ -34,6 +33,23 @@ class BulletinHomePage(RoutablePageMixin, Page):
     subpage_types = ['BulletinEmail']
 
     @route(r'^$')
+    def paginated_bulletins(self, request, *args, **kwargs):
+        """Return paginated bulletins home page."""
+        template_name = 'bulletins/bulletins_by_page.html'
+        context = super(BulletinHomePage, self).get_context(request)
+        all_bulletins = BulletinEmail.objects.live().order_by('-bulletin_date')
+        paginator = Paginator(all_bulletins, 5)
+        page = request.GET.get('page')
+        try:
+            resources = paginator.page(page)
+        except PageNotAnInteger:
+            resources = paginator.page(1)
+        except EmptyPage:
+            resources = paginator.page(paginator.num_pages)
+
+        context['resources'] = resources
+        return render(request, template_name, context)
+
     @route(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$')
     def bulletins(self, request, *args, **kwargs):
         """Return current month bulletins or archives by kwarg."""
@@ -75,7 +91,7 @@ class BulletinHomePage(RoutablePageMixin, Page):
         return context
 
 
-class BulletinEmail(Page):
+class BulletinEmail(OpenGraphMixin, Page):
     """Page for a single bulletin email."""
 
     bulletin_date = models.DateField("Bulletin Date")
@@ -100,13 +116,6 @@ class BulletinEmail(Page):
         FieldPanel('bulletin_date'),
         StreamFieldPanel('body'),
     ]
-
-    promote_panels = [
-        MultiFieldPanel([
-            FieldPanel('seo_title'),
-            FieldPanel('show_in_menus'),
-            FieldPanel('search_description'),
-        ])]
 
     def save(self, *args, **kwargs):
         """Override to have a more specific slug w/ date & title."""

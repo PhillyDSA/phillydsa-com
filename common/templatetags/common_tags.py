@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import datetime
 import json
@@ -5,6 +6,8 @@ import json
 from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
+from django.utils.html import strip_tags
+from django.template.defaultfilters import truncatewords_html
 
 import pytz
 
@@ -35,7 +38,7 @@ def zulu_time(date_obj):
 @register.filter
 def strip_double_quotes(text):
     """Return string with double quote marks replaced by single quote marks."""
-    return text.replace('"', "'").strip()
+    return text.replace('"', "'").replace('\n', ' ').replace('  ', ' ').strip()
 
 
 @register.filter
@@ -46,6 +49,15 @@ def generate_page_title(page):
     except AttributeError as e:
         return ""
     return '{0} - {1}'.format(page.get_site().site_name, title)
+
+
+@register.filter
+def generate_page_description(page):
+    """Return page description."""
+    try:
+        return page.search_description or strip_double_quotes(truncatewords_html(strip_tags(page.body), 20))
+    except AttributeError:
+        return ""
 
 
 @register.simple_tag
@@ -85,3 +97,12 @@ def organization_jsonld(request, logo='original', **kwargs):
         'description': strip_double_quotes(seo_settings.description)
     }
     return mark_safe(json.dumps(json_ld, indent=4))
+
+
+@register.simple_tag
+def image_src(request, image, spec):
+    """Return string of image URL for given image & spec combination."""
+    if image is None:
+        return ''
+    rendition = image.get_rendition(spec).url
+    return f'{request.site.root_url}{rendition}'

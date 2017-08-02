@@ -9,3 +9,4 @@ pytest-django
 codecov
 django-template-debug
 ipdb
+beautifulsoup4

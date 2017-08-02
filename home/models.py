@@ -15,9 +15,10 @@ from wagtail.wagtailcore import blocks
 
 from common import blocks as common_blocks
 from common.snippets import FundraisingSnippet
+from common.open_graph import OpenGraphMixin
 
 
-class HomePage(Page):
+class HomePage(OpenGraphMixin, Page):
     """Controls rendering of PhillyDSA home page.
 
     This is the first page that you see hosted at /
