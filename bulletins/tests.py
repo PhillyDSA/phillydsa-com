@@ -49,3 +49,13 @@ class BulletinsTests(TestCase):
         bulletins = req.context['bulletins']
         assert len(bulletins) == 1
         assert bulletins[0].title == "Test Bulletin"
+
+    def test_bulletins_home_page_empty(self):
+        """Test empty page (no bulletins present)."""
+        req = self.client.get('/news/?page=100')
+        assert req.status_code == 200, req.status_code
+
+    def test_bulletins_home_page_not_int(self):
+        """Test that providing a page number like 'a' doesn't break things."""
+        req = self.client.get('/news/?page=test')
+        assert req.status_code == 200, req.status_code

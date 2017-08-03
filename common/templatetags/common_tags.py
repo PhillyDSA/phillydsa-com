@@ -28,8 +28,19 @@ def get_item(dictionary, key):
 
 @register.filter
 def zulu_time(date_obj):
-    """Return a datetime.datetime obj and return google calendar/zulu formatted time string."""
-    if isinstance(date_obj, datetime.date):
+    """Return return google calendar/zulu formatted time string for dt.date(time).
+
+    The wonkiness with the isinstance check is due to the fact that
+    if we were to check if date_obj was a date with isinstance(date_obj, dt.date)
+    and date_obj was a dt.datetime, because dt.datetime is a subclass of
+    dt.date, it would always be True for both dt.dates and dt.datetimes
+
+    The point is basically to check if there was time supplied and, if not,
+    provide a default time.
+    """
+    if isinstance(date_obj, datetime.datetime):
+        pass
+    else:
         date_obj = datetime.datetime.combine(date_obj, datetime.time.min)
     dt = date_obj.astimezone(TZ).astimezone(pytz.utc)
     return dt.strftime("%Y%m%dT%H%M00Z")
@@ -82,6 +93,13 @@ def organization_jsonld(request, logo='original', **kwargs):
         '@type': 'Organization',
         'name': request.site.site_name,
         'url': request.site.root_url,
+        'address': {
+            '@type': 'PostalAddress',
+            'addressStreet': seo_settings.address_street,
+            'addressLocality': seo_settings.address_city,
+            'addressRegion': seo_settings.address_state,
+            'postalCode': seo_settings.address_zip_code,
+        },
         'logo': {
             '@type': "ImageObject",
             'url': logo_url,
