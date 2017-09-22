@@ -3,7 +3,7 @@ from django.db import models
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
@@ -31,6 +31,11 @@ class SEOSettings(BaseSetting):
     organization_full_name = models.CharField(
         max_length=500,
         help_text='The actual name of your local (ie. Philadelphia Local of the Democratic [etc])')
+    address_street = models.CharField(max_length=255, help_text="Street address for local (if any)", blank=True)
+    address_city = models.CharField(max_length=255, blank=True)
+    address_state = models.CharField(max_length=255, blank=True)
+    address_zip_code = models.CharField(max_length=5, blank=True)
+
     logo = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -63,12 +68,22 @@ class SEOSettings(BaseSetting):
         blank=True)
 
     panels = [
-        FieldPanel('organization_short_name'),
-        FieldPanel('organization_full_name'),
-        FieldPanel('description'),
+        MultiFieldPanel(heading="Chapter Information", children=[
+            FieldPanel('organization_short_name'),
+            FieldPanel('organization_full_name'),
+            FieldPanel('description'),
+        ]),
+        MultiFieldPanel(heading="Address Information", children=[
+            FieldPanel('address_street'),
+            FieldPanel('address_city'),
+            FieldPanel('address_state'),
+            FieldPanel('address_zip_code'),
+        ]),
         ImageChooserPanel('logo'),
         ImageChooserPanel('logo_wide'),
-        FieldPanel('keywords'),
-        FieldPanel('google_site_verification_key'),
-        FieldPanel('google_analytics_key'),
+        MultiFieldPanel(heading='Google Keys & Data', children=[
+            FieldPanel('keywords'),
+            FieldPanel('google_site_verification_key'),
+            FieldPanel('google_analytics_key'),
+        ])
     ]

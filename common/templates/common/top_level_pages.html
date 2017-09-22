@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="w-100">
+{% for page in pages %}
+    <article class="dark-gray mv4 center measure-wide w-80 pa3-ns">
+        <div class="red fw1 f2"><a href="{{ page.url }}" class="fw3">{{ page.title }}</a></div>
+        <p class="f6 lh-copy measure mt2">{{ page.specific.body | truncatewords_html:100 }}</p>
+        <a href="{{ page.url }}" class="pa2 ph3 mv2 bg-black dib white">Full text</a>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}

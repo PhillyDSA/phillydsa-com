@@ -204,7 +204,7 @@ class MemberCalendarEvent(Page):
         else:
             return ", ".join([self.location_street_address,
                               self.location_city,
-                              self.location_state]) + self.location_zip_code
+                              self.location_state]) + " " + self.location_zip_code
 
     def to_ical(self):
         """Return an iCal compatible file representing the event."""

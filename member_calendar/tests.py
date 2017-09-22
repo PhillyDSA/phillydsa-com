@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import datetime
 
 from bs4 import BeautifulSoup as bs
 
 from django.test import TestCase
 from django.test import Client
+
+from wagtail.wagtailcore.models import Page
 
 from member_calendar.models import MemberCalendarEvent
 from member_calendar.utils import make_calendar
@@ -82,3 +85,26 @@ class MemberCalendarTests(TestCase):
         assert month == 5
         assert isinstance(cal, list)
         assert isinstance(cal[0], list)
+
+    def test_event_creation(self):
+        """Test creating events and slug/location properties."""
+        homepage = Page.objects.get(url_path='/')
+        mce = MemberCalendarEvent()
+        mce.title = 'Test event'
+        mce.event_date = datetime.date(2017, 1, 1)
+        mce.event_end_time = datetime.time(12, 0)
+        mce.event_start_time = datetime.time(13, 0)
+        homepage.add_child(instance=mce)
+        mce.save()
+
+        assert mce.slug == '2017-01-01-test-event'
+        assert mce.event_location == "To be determined"
+
+        mce.location_name = 'Test location'
+        mce.location_street_address = '123 Main Street'
+        mce.location_city = 'Anywhere'
+        mce.location_state = 'PA'
+        mce.location_zip_code = '19107'
+
+        mce.save()
+        assert mce.event_location == "123 Main Street, Anywhere, PA 19107", mce.event_location
