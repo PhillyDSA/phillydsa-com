@@ -8,7 +8,7 @@ from django.core.exceptions import ImproperlyConfigured
 from .base import *  # noqa
 
 DEBUG = False
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'phillydsa.com']
 
 config = configparser.ConfigParser()
 
