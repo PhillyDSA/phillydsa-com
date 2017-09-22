@@ -6,7 +6,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import StreamField
@@ -27,6 +27,13 @@ class TopLevelPages(Page):
 
     subpage_types = ['TopLevelPage']
 
+    def get_context(self, request):
+        """Return all children ordered by date."""
+        context = super().get_context(request)
+        pages = self.get_children().live().order_by('-toplevelpage__page_date')
+        context['pages'] = pages
+        return context
+
 
 class TopLevelPage(Page):
     """Render a top-level page.
@@ -45,6 +52,7 @@ class TopLevelPage(Page):
         ('call_to_action', common_blocks.CallToAction()),
         ('small_call_to_action', common_blocks.CTAButton()),
     ])
+    page_date = models.DateField()
 
     fundraising_snippet = models.ForeignKey(
         FundraisingSnippet,
@@ -59,6 +67,7 @@ class TopLevelPage(Page):
     ]
 
     content_panels = Page.content_panels + [
+        FieldPanel('page_date'),
         StreamFieldPanel('body'),
         SnippetChooserPanel('fundraising_snippet')
     ]
