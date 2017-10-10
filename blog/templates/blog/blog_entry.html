@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load common_tags %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load wagtailsettings_tags %}
+{% get_settings %}
+
+{% block body_class %}template-top_level_page{% endblock %}
+
+{% block content %}
+<div class="measure-wide center">
+  <h1 class="red" >{{ page.title }}</h1>
+  <h2 class="gray mb2">By {{ page.blog_author }} {{ page.blog_date }}</h2>
+   {% if page.blog_tags.all.count %}
+        <h3>Tags: 
+        {% for tag in page.blog_tags.all %}
+            <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+        {% endfor %}
+        </h3>
+  {% endif %}
+
+  <article class="lh-copy f2 fw4 ">
+    {% include_block page.body %}
+  </article>
+</div>
+
+<div class="measure-wide center">
+{% if page.fundraising_snippet %}
+  {{ page.fundraising_snippet.embed_code|safe }}
+{% endif %}
+</div>
+
+{% endblock %}
