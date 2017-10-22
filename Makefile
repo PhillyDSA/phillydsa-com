@@ -50,3 +50,6 @@ deploy:
 
 dump:
 	python manage.py dumpdata --natural-foreign --natural-primary > data-`date +'%Y-%m-%d-%H-%M-%S'`.json
+
+uncss:
+	node uncss.js
