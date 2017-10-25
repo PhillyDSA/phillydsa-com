@@ -109,6 +109,8 @@ class MemberCalendarEvent(Page):
     event_date = models.DateField("Event Date")
     event_start_time = models.TimeField("Start time")
     event_end_time = models.TimeField("End time")
+    wheelchair_accessible = models.BooleanField(default=False)
+    asl_available = models.BooleanField(default=False)
     body = StreamField([
         ('banner_image', common_blocks.BannerImage()),
         ('heading', blocks.CharBlock(classname="full title")),
@@ -135,6 +137,8 @@ class MemberCalendarEvent(Page):
         FieldPanel('event_date'),
         FieldPanel('event_start_time'),
         FieldPanel('event_end_time'),
+        FieldPanel('wheelchair_accessible'),
+        FieldPanel('asl_available'),
         FieldPanel('location_name'),
         FieldPanel('location_street_address'),
         FieldPanel('location_city'),
