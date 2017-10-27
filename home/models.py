@@ -14,7 +14,7 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailcore import blocks
 
 from common import blocks as common_blocks
-from common.snippets import FundraisingSnippet
+from common.snippets import EmbedCodeSnippet
 from common.open_graph import OpenGraphMixin
 
 
@@ -37,7 +37,7 @@ class HomePage(OpenGraphMixin, Page):
     ])
 
     fundraising_snippet = models.ForeignKey(
-        FundraisingSnippet,
+        EmbedCodeSnippet,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
