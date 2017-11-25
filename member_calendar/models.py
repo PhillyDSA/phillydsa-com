@@ -121,6 +121,7 @@ class MemberCalendarEvent(Page):
         ('block_quote', common_blocks.BlockQuote()),
         ('call_to_action', common_blocks.CallToAction()),
         ('small_call_to_action', common_blocks.CTAButton()),
+        ('embed_code', common_blocks.EmbedCode()),
     ])
 
     location_street_address = models.CharField(max_length=255, blank=True)
