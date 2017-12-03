@@ -114,3 +114,15 @@ class CTAButton(blocks.StructBlock):
 
         icon = 'title'
         template = 'common/_cta_button.html'
+
+
+class EmbedCode(blocks.StructBlock):
+    """Block for embed codes."""
+
+    embed_code = blocks.TextBlock(required=True)
+
+    class Meta:
+        """Specific attrs."""
+
+        icon = 'code'
+        template = 'common/_embed_code.html'

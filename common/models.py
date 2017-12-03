@@ -14,7 +14,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from common import blocks as common_blocks
-from common.snippets import FundraisingSnippet
+from common.snippets import EmbedCodeSnippet
 
 from common.site_settings import (  # noqa
     SocialMediaSettings,
@@ -51,11 +51,12 @@ class TopLevelPage(Page):
         ('block_quote', common_blocks.BlockQuote()),
         ('call_to_action', common_blocks.CallToAction()),
         ('small_call_to_action', common_blocks.CTAButton()),
+        ('embed_code', common_blocks.EmbedCode()),
     ])
     page_date = models.DateField()
 
     fundraising_snippet = models.ForeignKey(
-        FundraisingSnippet,
+        EmbedCodeSnippet,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,

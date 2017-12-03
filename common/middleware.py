@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2017 Jeremy Low
 import datetime
 from django.utils.deprecation import MiddlewareMixin
 

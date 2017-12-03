@@ -199,36 +199,11 @@
     }
 },
 {
-    "model": "auth.user",
-    "fields": {
-        "password": "pbkdf2_sha256$36000$qvCjXdnvap2B$rJpvd5ZpvmtpFdMcGO69mIscw1mdoN24PPkJqdqji2Y=",
-        "last_login": "2017-12-03T18:03:46.873Z",
-        "is_superuser": true,
-        "username": "jeremy",
-        "first_name": "",
-        "last_name": "",
-        "email": "",
-        "is_staff": true,
-        "is_active": true,
-        "date_joined": "2017-12-03T18:03:42.736Z",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
     "model": "sessions.session",
     "pk": "n42y95ocxzgedsf9ibvk3zor8m3unhfi",
     "fields": {
         "session_data": "MjFhMzMzNjAzMDBiMzk3YzZmYjVlZDgzZmIyMTRiZGJkOWU3OWIyMjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlOGJlZTg3YzEzYTc4ZDE4ZTA2MTRmZjBlMGY5MzJlNjgzMWRiODZiIn0=",
         "expire_date": "2017-11-19T01:15:33.693Z"
-    }
-},
-{
-    "model": "sessions.session",
-    "pk": "pv7309dka63ia4u3ykea2vjlewvo0pgp",
-    "fields": {
-        "session_data": "OTA0ODcxNDMwNGJhYTNjODU5OTczOWJmN2Y3ZTg0NDMxNGZlN2I4Mjp7Il9hdXRoX3VzZXJfaWQiOiIyIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI2NmQ2YmFmZDM5YTE4ZjZhZjI1YmFmYzJkNjVjN2FiMjI0MzI0YTc0In0=",
-        "expire_date": "2017-12-17T18:03:46.915Z"
     }
 },
 {
@@ -558,34 +533,6 @@
     }
 },
 {
-    "model": "wagtailcore.pagerevision",
-    "pk": 21,
-    "fields": {
-        "page": 17,
-        "submitted_for_moderation": false,
-        "created_at": "2017-12-03T18:05:18.320Z",
-        "user": [
-            "jeremy"
-        ],
-        "content_json": "{\"pk\": 17, \"path\": \"000100010004\", \"depth\": 3, \"numchild\": 0, \"title\": \"calendar\", \"draft_title\": \"calendar\", \"slug\": \"calendar\", \"content_type\": 12, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/calendar/\", \"owner\": 2, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": null, \"last_published_at\": null, \"latest_revision_created_at\": null, \"live_revision\": null, \"intro\": \"\"}",
-        "approved_go_live_at": null
-    }
-},
-{
-    "model": "wagtailcore.pagerevision",
-    "pk": 22,
-    "fields": {
-        "page": 18,
-        "submitted_for_moderation": false,
-        "created_at": "2017-12-03T18:10:04.760Z",
-        "user": [
-            "jeremy"
-        ],
-        "content_json": "{\"pk\": 18, \"path\": \"0001000100040001\", \"depth\": 4, \"numchild\": 0, \"title\": \"Test event\", \"draft_title\": \"Test event\", \"slug\": \"2017-08-01-test-event\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/calendar/2017-08-01-test-event/\", \"owner\": 2, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": null, \"last_published_at\": null, \"latest_revision_created_at\": null, \"live_revision\": null, \"event_date\": \"2017-08-01\", \"event_start_time\": \"13:00:00\", \"event_end_time\": \"15:00:00\", \"wheelchair_accessible\": true, \"asl_available\": true, \"body\": \"[{\\\"type\\\": \\\"paragraph\\\", \\\"value\\\": \\\"<p>test event</p>\\\", \\\"id\\\": \\\"f9eceb62-5816-47fe-88cc-168c7b451e74\\\"}]\", \"location_street_address\": \"\", \"location_city\": \"\", \"location_zip_code\": \"\", \"location_state\": \"\", \"location_name\": \"\"}",
-        "approved_go_live_at": null
-    }
-},
-{
     "model": "wagtailcore.page",
     "pk": 1,
     "fields": {
@@ -622,7 +569,7 @@
     "fields": {
         "path": "00010001",
         "depth": 2,
-        "numchild": 4,
+        "numchild": 3,
         "title": "My homepage",
         "draft_title": "My homepage",
         "slug": "home",
@@ -846,72 +793,6 @@
     }
 },
 {
-    "model": "wagtailcore.page",
-    "pk": 17,
-    "fields": {
-        "path": "000100010004",
-        "depth": 3,
-        "numchild": 1,
-        "title": "calendar",
-        "draft_title": "calendar",
-        "slug": "calendar",
-        "content_type": [
-            "member_calendar",
-            "membercalendarhomepage"
-        ],
-        "live": true,
-        "has_unpublished_changes": false,
-        "url_path": "/home/calendar/",
-        "owner": [
-            "jeremy"
-        ],
-        "seo_title": "",
-        "show_in_menus": false,
-        "search_description": "",
-        "go_live_at": null,
-        "expire_at": null,
-        "expired": false,
-        "locked": false,
-        "first_published_at": "2017-12-03T18:05:18.480Z",
-        "last_published_at": "2017-12-03T18:05:18.480Z",
-        "latest_revision_created_at": "2017-12-03T18:05:18.320Z",
-        "live_revision": 21
-    }
-},
-{
-    "model": "wagtailcore.page",
-    "pk": 18,
-    "fields": {
-        "path": "0001000100040001",
-        "depth": 4,
-        "numchild": 0,
-        "title": "Test event",
-        "draft_title": "Test event",
-        "slug": "2017-08-01-test-event",
-        "content_type": [
-            "member_calendar",
-            "membercalendarevent"
-        ],
-        "live": true,
-        "has_unpublished_changes": false,
-        "url_path": "/home/calendar/2017-08-01-test-event/",
-        "owner": [
-            "jeremy"
-        ],
-        "seo_title": "",
-        "show_in_menus": false,
-        "search_description": "",
-        "go_live_at": null,
-        "expire_at": null,
-        "expired": false,
-        "locked": false,
-        "first_published_at": "2017-12-03T18:10:04.918Z",
-        "last_published_at": "2017-12-03T18:10:04.918Z",
-        "latest_revision_created_at": "2017-12-03T18:10:04.760Z",
-        "live_revision": 22
-    }
-},
-{
     "model": "blog.blogtagindexpage",
     "pk": 15,
     "fields": {}
@@ -967,30 +848,6 @@
         "share_image": null,
         "body": "[{\"type\": \"paragraph\", \"value\": \"<p>body for my homepage</p>\", \"id\": \"9e4ac948-cea8-4e85-b197-2a8e18da94d4\"}]",
         "fundraising_snippet": null
-    }
-},
-{
-    "model": "member_calendar.membercalendarevent",
-    "pk": 18,
-    "fields": {
-        "event_date": "2017-08-01",
-        "event_start_time": "13:00:00",
-        "event_end_time": "15:00:00",
-        "wheelchair_accessible": true,
-        "asl_available": true,
-        "body": "[{\"type\": \"paragraph\", \"value\": \"<p>test event</p>\", \"id\": \"f9eceb62-5816-47fe-88cc-168c7b451e74\"}]",
-        "location_street_address": "",
-        "location_city": "",
-        "location_zip_code": "",
-        "location_state": "",
-        "location_name": ""
-    }
-},
-{
-    "model": "member_calendar.membercalendarhomepage",
-    "pk": 17,
-    "fields": {
-        "intro": ""
     }
 },
 {

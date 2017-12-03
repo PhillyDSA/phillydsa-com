@@ -106,6 +106,7 @@ class BulletinEmail(OpenGraphMixin, Page):
         ('block_quote', common_blocks.BlockQuote()),
         ('call_to_action', common_blocks.CallToAction()),
         ('small_call_to_action', common_blocks.CTAButton()),
+        ('embed_code', common_blocks.EmbedCode()),
     ])
 
     search_fields = Page.search_fields + [
