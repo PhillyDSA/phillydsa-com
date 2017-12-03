@@ -1,5 +1,5 @@
 django-localflavor
-django
+django<2
 wagtail
 wagtailmenus
 python-dateutil
