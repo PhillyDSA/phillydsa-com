@@ -1,6 +1,6 @@
 -r base.txt
 pytest
-pre-commit==0.15.2
+pre-commit==0.15.0
 pycodestyle
 pip-tools
 coverage
