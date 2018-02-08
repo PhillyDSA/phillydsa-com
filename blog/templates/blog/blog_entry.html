@@ -14,7 +14,7 @@
   <h1 class="red" >{{ page.title }}</h1>
   <h2 class="gray mb2">By {{ page.blog_author }} {{ page.blog_date }}</h2>
    {% if page.blog_tags.all.count %}
-        <h3>Tags: 
+        <h3>Tags:
         {% for tag in page.blog_tags.all %}
             <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
         {% endfor %}

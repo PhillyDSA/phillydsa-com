@@ -44,7 +44,10 @@ class BlogHomePage(RoutablePageMixin, Page):
         context['resources'] = resources
         return render(request, template_name, context)
 
+
 class BlogEntryTag(TaggedItemBase):
+    """Tag for BlogEntry."""
+
     content_object = ParentalKey('BlogEntry', related_name='tagged_items')
 
 
@@ -52,7 +55,7 @@ class BlogEntry(OpenGraphMixin, Page):
     """Page for a single blog entry."""
 
     blog_date = models.DateField("Blog Entry Date")
-    blog_author= models.CharField(max_length=255)
+    blog_author = models.CharField(max_length=255)
     blog_tags = ClusterTaggableManager(through=BlogEntryTag, blank=True)
 
     body = StreamField([
@@ -73,10 +76,10 @@ class BlogEntry(OpenGraphMixin, Page):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-                FieldPanel('blog_date'),
-                FieldPanel('blog_author'),
-                FieldPanel('blog_tags'),
-                ],heading="Blog information"),
+            FieldPanel('blog_date'),
+            FieldPanel('blog_author'),
+            FieldPanel('blog_tags')],
+            heading="Blog information"),
         StreamFieldPanel('body'),
     ]
 
@@ -85,14 +88,16 @@ class BlogEntry(OpenGraphMixin, Page):
         self.slug = "{0}-{1}".format(self.blog_date.strftime("%Y-%m-%d"), slugify(self.title))
         super().save(*args, **kwargs)
 
+
 class BlogTagIndexPage(Page):
+    """Index page for a given blog tag."""
 
     def get_context(self, request):
-
+        """Return context filtered by tag."""
         # Filter by tag
         tag = request.GET.get('tag')
         blogpages = BlogEntry.objects.live().filter(blog_tags__name=tag)
-        #blogpages = BlogEntry.objects.live()
+        # blogpages = BlogEntry.objects.live()
 
         # Update template context
         context = super(BlogTagIndexPage, self).get_context(request)

@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 
 import datetime
 
-from django.test import TestCase
 from django.test import Client
 from blog.models import BlogEntry
+
 
 class BlogTests(TestCase):
     """Tests for Blog Entriesl and associated views."""
@@ -34,15 +35,13 @@ class BlogTests(TestCase):
         # (1) title: blog entry 1, author: author 1, date: 11/1/17, tags: tag1, tag2
         # (2) title: blog entry 2, author: author 2, date: 11/1/17, tags: tag1, tag3
         # (3) title: blog entry 3, author: author 1, date: 11/2/17, tags: tag1
-        blog_entries=req.context['resources']
-        assert len(blog_entries)==3
+        blog_entries = req.context['resources']
+        assert len(blog_entries) == 3
         # in reverse order
-        assert blog_entries[0].title=="blog entry 3", blog_entries[0].title
-        
-        # when the functionality is put in for display by month/year or author, 
-        # will have tests here for that
+        assert blog_entries[0].title == "blog entry 3", blog_entries[0].title
 
-        
+        # when the functionality is put in for display by month/year or author,
+        # will have tests here for that
 
     def test_blog_home_page_empty(self):
         """Test empty page (no blog entries)."""
@@ -53,30 +52,20 @@ class BlogTests(TestCase):
         """Test routing and MemberCalendarHomePage rendering."""
         req = self.client.get('/tags/?tag=tag1')
         assert req.status_code == 200
-        blog_entries=req.context['blogpages']
-        assert len(blog_entries)==3
+        blog_entries = req.context['blogpages']
+        assert len(blog_entries) == 3
 
         req = self.client.get('/tags/?tag=tag2')
         assert req.status_code == 200
-        blog_entries=req.context['blogpages']
-        assert len(blog_entries)==1
+        blog_entries = req.context['blogpages']
+        assert len(blog_entries) == 1
 
         req = self.client.get('/tags/?tag=tag3')
         assert req.status_code == 200
-        blog_entries=req.context['blogpages']
-        assert len(blog_entries)==1
+        blog_entries = req.context['blogpages']
+        assert len(blog_entries) == 1
 
         req = self.client.get('/tags/?tag=tag4')
         assert req.status_code == 200
-        blog_entries=req.context['blogpages']
-        assert len(blog_entries)==0
-
-        
-
-
-
-
-
-
-
-
+        blog_entries = req.context['blogpages']
+        assert len(blog_entries) == 0
