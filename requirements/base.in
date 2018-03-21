@@ -1,6 +1,6 @@
 django-localflavor
 django<2
-wagtail
+wagtail<2
 wagtailmenus
 python-dateutil
 icalendar
