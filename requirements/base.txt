@@ -21,8 +21,7 @@ html5lib==0.999999999     # via wagtail
 icalendar==4.0.1
 idna==2.6                 # via requests
 lxml==4.2.0               # via premailer
-olefile==0.45.1           # via pillow
-pillow==4.3.0             # via wagtail
+pillow==6.2.0             # via wagtail
 premailer==3.1.1
 python-dateutil==2.7.0
 pytz==2018.3              # via django, django-modelcluster, icalendar
