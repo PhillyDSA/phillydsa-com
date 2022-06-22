@@ -29,7 +29,7 @@
     "jshint": "https://registry.npmjs.org/jshint/-/jshint-2.9.4.tgz"
   },
   "dependencies": {
-    "jsdom": "^11.0.0",
+    "jsdom": "^16.5.0",
     "uncss": "^0.14.1",
     "xml2js": "^0.4.17"
   }
